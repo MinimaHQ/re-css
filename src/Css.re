@@ -63,17 +63,17 @@ module Length = {
 
   let rec toString = (x: t) =>
     switch (x) {
-    | #LengthUnit.t as x => x |> LengthUnit.toString
+    | #LengthUnit.t as x => x->LengthUnit.toString
     | `calc(op, a, b) =>
-      let op = op |> Calc.toString;
-      let a = a |> toString;
-      let b = b |> toString;
+      let op = op->Calc.toString;
+      let a = a->toString;
+      let b = b->toString;
       {j|calc($a $op $b)|j};
     };
 
   let toString2 = (a, b) => {
-    let a = a |> toString;
-    let b = b |> toString;
+    let a = a->toString;
+    let b = b->toString;
     {j|$a $b|j};
   };
 };
@@ -92,11 +92,11 @@ module Percentage = {
 
   let rec toString = (x: t) =>
     switch (x) {
-    | #PercentageUnit.t as x => x |> PercentageUnit.toString
+    | #PercentageUnit.t as x => x->PercentageUnit.toString
     | `calc(op, a, b) =>
-      let op = op |> Calc.toString;
-      let a = a |> toString;
-      let b = b |> toString;
+      let op = op->Calc.toString;
+      let a = a->toString;
+      let b = b->toString;
       {j|calc($a $op $b)|j};
     };
 };
@@ -106,33 +106,33 @@ module LengthPercentage = {
 
   let rec toString = (x: t) =>
     switch (x) {
-    | #LengthUnit.t as x => x |> LengthUnit.toString
-    | #PercentageUnit.t as x => x |> PercentageUnit.toString
+    | #LengthUnit.t as x => x->LengthUnit.toString
+    | #PercentageUnit.t as x => x->PercentageUnit.toString
     | `calc(op, a, b) =>
-      let op = op |> Calc.toString;
-      let a = a |> toString;
-      let b = b |> toString;
+      let op = op->Calc.toString;
+      let a = a->toString;
+      let b = b->toString;
       {j|calc($a $op $b)|j};
     };
 
   let toString2 = (a, b) => {
-    let a = a |> toString;
-    let b = b |> toString;
+    let a = a->toString;
+    let b = b->toString;
     {j|$a $b|j};
   };
 
   let toString3 = (a, b, c) => {
-    let a = a |> toString;
-    let b = b |> toString;
-    let c = c |> toString;
+    let a = a->toString;
+    let b = b->toString;
+    let c = c->toString;
     {j|$a $b $c|j};
   };
 
   let toString4 = (a, b, c, d) => {
-    let a = a |> toString;
-    let b = b |> toString;
-    let c = c |> toString;
-    let d = d |> toString;
+    let a = a->toString;
+    let b = b->toString;
+    let c = c->toString;
+    let d = d->toString;
     {j|$a $b $c $d|j};
   };
 };
@@ -143,27 +143,27 @@ module LengthPercentageAuto = {
   let toString = (x: t) =>
     switch (x) {
     | `auto => "auto"
-    | #LengthPercentage.t as x => x |> LengthPercentage.toString
+    | #LengthPercentage.t as x => x->LengthPercentage.toString
     };
 
   let toString2 = (a, b) => {
-    let a = a |> toString;
-    let b = b |> toString;
+    let a = a->toString;
+    let b = b->toString;
     {j|$a $b|j};
   };
 
   let toString3 = (a, b, c) => {
-    let a = a |> toString;
-    let b = b |> toString;
-    let c = c |> toString;
+    let a = a->toString;
+    let b = b->toString;
+    let c = c->toString;
     {j|$a $b $c|j};
   };
 
   let toString4 = (a, b, c, d) => {
-    let a = a |> toString;
-    let b = b |> toString;
-    let c = c |> toString;
-    let d = d |> toString;
+    let a = a->toString;
+    let b = b->toString;
+    let c = c->toString;
+    let d = d->toString;
     {j|$a $b $c $d|j};
   };
 };
@@ -174,7 +174,7 @@ module LengthPercentageNone = {
   let toString = (x: t) =>
     switch (x) {
     | `none => "none"
-    | #LengthPercentage.t as x => x |> LengthPercentage.toString
+    | #LengthPercentage.t as x => x->LengthPercentage.toString
     };
 };
 
@@ -183,33 +183,33 @@ module NumberPercentage = {
 
   let rec toString = (x: t) =>
     switch (x) {
-    | #PercentageUnit.t as x => x |> PercentageUnit.toString
+    | #PercentageUnit.t as x => x->PercentageUnit.toString
     | `num(x) => {j|$x|j}
     | `calc(op, a, b) =>
-      let op = op |> Calc.toString;
-      let a = a |> toString;
-      let b = b |> toString;
+      let op = op->Calc.toString;
+      let a = a->toString;
+      let b = b->toString;
       {j|calc($a $op $b)|j};
     };
 
   let toString2 = (a, b) => {
-    let a = a |> toString;
-    let b = b |> toString;
+    let a = a->toString;
+    let b = b->toString;
     {j|$a $b|j};
   };
 
   let toString3 = (a, b, c) => {
-    let a = a |> toString;
-    let b = b |> toString;
-    let c = c |> toString;
+    let a = a->toString;
+    let b = b->toString;
+    let c = c->toString;
     {j|$a $b $c|j};
   };
 
   let toString4 = (a, b, c, d) => {
-    let a = a |> toString;
-    let b = b |> toString;
-    let c = c |> toString;
-    let d = d |> toString;
+    let a = a->toString;
+    let b = b->toString;
+    let c = c->toString;
+    let d = d->toString;
     {j|$a $b $c $d|j};
   };
 };
@@ -406,7 +406,7 @@ module Gradient = {
       x
       ->(
           List.mapU((. (index, color)) => {
-            let color = color |> Color.toString;
+            let color = color->Color.toString;
             {j|$color $index%|j};
           })
         )
@@ -423,18 +423,18 @@ module Gradient = {
   let toString = (x: t) =>
     switch (x) {
     | `linearGradient(angle, stops) =>
-      let angle = angle |> Angle.toString;
-      let stops = stops |> Stops.toString;
+      let angle = angle->Angle.toString;
+      let stops = stops->Stops.toString;
       {j|linear-gradient($angle, $stops)|j};
     | `repeatingLinearGradient(angle, stops) =>
-      let angle = angle |> Angle.toString;
-      let stops = stops |> Stops.toString;
+      let angle = angle->Angle.toString;
+      let stops = stops->Stops.toString;
       {j|repeating-linear-gradient($angle, $stops)|j};
     | `radialGradient(stops) =>
-      let stops = stops |> Stops.toString;
+      let stops = stops->Stops.toString;
       {j|radial-gradient($stops)|j};
     | `repeatingRadialGradient(stops) =>
-      let stops = stops |> Stops.toString;
+      let stops = stops->Stops.toString;
       {j|repeating-radial-gradient($stops)|j};
     };
 };
@@ -453,8 +453,8 @@ module Image = {
 
   let toString = (x: t) =>
     switch (x) {
-    | #Url.t as x => x |> Url.toString
-    | #Gradient.t as x => x |> Gradient.toString
+    | #Url.t as x => x->Url.toString
+    | #Gradient.t as x => x->Gradient.toString
     };
 };
 
@@ -555,15 +555,15 @@ module BorderWidth = {
     | `thin => "thin"
     | `medium => "medium"
     | `thick => "thick"
-    | #LengthPercentage.t as x => x |> LengthPercentage.toString
+    | #LengthPercentage.t as x => x->LengthPercentage.toString
     };
 };
 
 module Border = {
   let toString = (width, style, color) => {
-    let width = width |> BorderWidth.toString;
-    let style = style |> BorderStyle.toString;
-    let color = color |> Color.toString;
+    let width = width->BorderWidth.toString;
+    let style = style->BorderStyle.toString;
+    let color = color->Color.toString;
     {j|$width $style $color|j};
   };
 };
@@ -574,7 +574,7 @@ module BackgroundImage = {
   let toString = (x: t) =>
     switch (x) {
     | `none => "none"
-    | #Image.t as x => x |> Image.toString
+    | #Image.t as x => x->Image.toString
     };
 };
 
@@ -654,8 +654,8 @@ module BackgroundRepeat = {
     | `round => "round"
     };
   let toString2 = (a, b) => {
-    let a = a |> toString;
-    let b = b |> toString;
+    let a = a->toString;
+    let b = b->toString;
     {j|$a $b|j};
   };
 };
@@ -671,8 +671,8 @@ module BackgroundSize = {
   let toString = (x: t) =>
     switch (x) {
     | `size(x, y) =>
-      let x = x |> LengthPercentage.toString;
-      let y = y |> LengthPercentage.toString;
+      let x = x->LengthPercentage.toString;
+      let y = y->LengthPercentage.toString;
       {j|$x $y|j};
     | `auto => "auto"
     | `cover => "cover"
@@ -732,15 +732,15 @@ module ListStyleImage = {
   let toString = (x: t) =>
     switch (x) {
     | `none => "none"
-    | #Url.t as x => x |> Url.toString
+    | #Url.t as x => x->Url.toString
     };
 };
 
 module ListStyle = {
   let toString = (style, position, image) => {
-    let style = style |> ListStyleType.toString;
-    let position = position |> ListStylePosition.toString;
-    let image = image |> ListStyleImage.toString;
+    let style = style->ListStyleType.toString;
+    let position = position->ListStylePosition.toString;
+    let image = image->ListStyleImage.toString;
     {j|$style $position $image|j};
   };
 };
@@ -878,7 +878,7 @@ module LineHeight = {
     switch (x) {
     | `normal => "normal"
     | `abs(x) => {j|$x|j}
-    | #LengthPercentage.t as x => x |> LengthPercentage.toString
+    | #LengthPercentage.t as x => x->LengthPercentage.toString
     };
 };
 
@@ -888,7 +888,7 @@ module LetterSpacing = {
   let toString = (x: t) =>
     switch (x) {
     | `normal => "normal"
-    | #Length.t as x => x |> Length.toString
+    | #Length.t as x => x->Length.toString
     };
 };
 
@@ -952,10 +952,10 @@ module TextOverflow = {
 
 module TextShadow = {
   let toString = (~x, ~y, ~blur, color) => {
-    let x = x |> Length.toString;
-    let y = y |> Length.toString;
-    let blur = blur |> Length.toString;
-    let color = color |> Color.toString;
+    let x = x->Length.toString;
+    let y = y->Length.toString;
+    let blur = blur->Length.toString;
+    let color = color->Color.toString;
     {j|$x $y $blur $color|j};
   };
 };
@@ -1007,7 +1007,7 @@ module VerticalAlign = {
     | `middle => "middle"
     | `bottom => "bottom"
     | `textBottom => "text-bottom"
-    | #LengthPercentage.t as x => x |> LengthPercentage.toString
+    | #LengthPercentage.t as x => x->LengthPercentage.toString
     };
 };
 
@@ -1041,7 +1041,7 @@ module WordSpacing = {
   let toString = (x: t) =>
     switch (x) {
     | `normal => "normal"
-    | #Length.t as x => x |> Length.toString
+    | #Length.t as x => x->Length.toString
     };
 };
 
@@ -1071,26 +1071,26 @@ module OutlineStyle = {
   let toString = (x: t) =>
     switch (x) {
     | `auto => "auto"
-    | #BorderStyle.t as x => x |> BorderStyle.toString
+    | #BorderStyle.t as x => x->BorderStyle.toString
     };
 };
 
 module Outline = {
   let toString = (width, style, color) => {
-    let width = width |> Length.toString;
-    let style = style |> OutlineStyle.toString;
-    let color = color |> Color.toString;
+    let width = width->Length.toString;
+    let style = style->OutlineStyle.toString;
+    let color = color->Color.toString;
     {j|$width $style $color|j};
   };
 };
 
 module BoxShadow = {
   let toString = (~x, ~y, ~blur, ~spread, ~inset, color) => {
-    let x = x |> Length.toString;
-    let y = y |> Length.toString;
-    let blur = blur |> Length.toString;
-    let spread = spread |> Length.toString;
-    let color = color |> Color.toString;
+    let x = x->Length.toString;
+    let y = y->Length.toString;
+    let blur = blur->Length.toString;
+    let spread = spread->Length.toString;
+    let color = color->Color.toString;
 
     if (inset) {{j|$x $y $blur $spread $color inset|j}} else {
       {j|$x $y $blur $spread $color|j}
@@ -1267,9 +1267,9 @@ module Transition = {
         ~delay: TransitionDelay.t,
         ~timingFunction: TransitionTimingFunction.t,
       ) => {
-    let duration = duration |> Timing.toString;
-    let delay = delay |> Timing.toString;
-    let timingFunction = timingFunction |> TimingFunction.toString;
+    let duration = duration->Timing.toString;
+    let delay = delay->Timing.toString;
+    let timingFunction = timingFunction->TimingFunction.toString;
     {j|$property $duration $timingFunction $delay|j};
   };
 };
@@ -1320,22 +1320,22 @@ module Transform = {
   let toString = (x: t) =>
     switch (x) {
     | `translate(x, y) =>
-      let x = x |> LengthPercentage.toString;
-      let y = y |> LengthPercentage.toString;
+      let x = x->LengthPercentage.toString;
+      let y = y->LengthPercentage.toString;
       {j|translate($x, $y)|j};
     | `translate3d(x, y, z) =>
-      let x = x |> LengthPercentage.toString;
-      let y = y |> LengthPercentage.toString;
-      let z = z |> LengthPercentage.toString;
+      let x = x->LengthPercentage.toString;
+      let y = y->LengthPercentage.toString;
+      let z = z->LengthPercentage.toString;
       {j|translate3d($x, $y, $z)|j};
     | `translateX(x) =>
-      let x = x |> LengthPercentage.toString;
+      let x = x->LengthPercentage.toString;
       {j|translateX($x)|j};
     | `translateY(y) =>
-      let y = y |> LengthPercentage.toString;
+      let y = y->LengthPercentage.toString;
       {j|translateY($y)|j};
     | `translateZ(z) =>
-      let z = z |> LengthPercentage.toString;
+      let z = z->LengthPercentage.toString;
       {j|translateZ($z)|j};
     | `scale(x, y) => {j|scale($x, $y)|j}
     | `scale3d(x, y, z) => {j|scale3d($x, $y, $z)|j}
@@ -1343,29 +1343,29 @@ module Transform = {
     | `scaleY(y) => {j|scaleY($y)|j}
     | `scaleZ(z) => {j|scaleZ($z)|j}
     | `rotate(a) =>
-      let a = a |> Angle.toString;
+      let a = a->Angle.toString;
       {j|rotate($a)|j};
     | `rotate3d(x, y, z, a) =>
-      let a = a |> Angle.toString;
+      let a = a->Angle.toString;
       {j|rotate3d($x, $y, $z, $a)|j};
     | `rotateX(a) =>
-      let a = a |> Angle.toString;
+      let a = a->Angle.toString;
       {j|rotateX($a)|j};
     | `rotateY(a) =>
-      let a = a |> Angle.toString;
+      let a = a->Angle.toString;
       {j|rotateY($a)|j};
     | `rotateZ(a) =>
-      let a = a |> Angle.toString;
+      let a = a->Angle.toString;
       {j|rotateZ($a)|j};
     | `skew(x, y) =>
-      let x = x |> Angle.toString;
-      let y = y |> Angle.toString;
+      let x = x->Angle.toString;
+      let y = y->Angle.toString;
       {j|skew($x, $y)|j};
     | `skewX(a) =>
-      let a = a |> Angle.toString;
+      let a = a->Angle.toString;
       {j|skewX($a)|j};
     | `skewY(a) =>
-      let a = a |> Angle.toString;
+      let a = a->Angle.toString;
       {j|skewY($a)|j};
     | `matrix(a, b, c, d, tx, ty) => {j|matrix($a, $b, $c, $d, $tx, $ty)|j}
     | `matrix3d(
@@ -1387,7 +1387,7 @@ module Transform = {
         d4,
       ) => {j|matrix3d($a1, $b1, $c1, $d1, $a2, $b2, $c2, $d2, $a3, $b3, $c3, $d3, $a4, $b4, $c4, $d4)|j}
     | `perspective(x) =>
-      let x = x |> Length.toString;
+      let x = x->Length.toString;
       {j|perspective($x)|j};
     | `none => "none"
     };
@@ -1409,7 +1409,7 @@ module Perspective = {
   let toString = (x: t) =>
     switch (x) {
     | `none => "none"
-    | #Length.t as x => x |> Length.toString
+    | #Length.t as x => x->Length.toString
     };
 };
 
@@ -1485,13 +1485,13 @@ module Animation = {
         ~playState: AnimationPlayState.t,
         ~iterationCount: AnimationIterationCount.t,
       ) => {
-    let duration = duration |> Timing.toString;
-    let delay = delay |> Timing.toString;
-    let direction = direction |> AnimationDirection.toString;
-    let timingFunction = timingFunction |> TimingFunction.toString;
-    let fillMode = fillMode |> AnimationFillMode.toString;
-    let playState = playState |> AnimationPlayState.toString;
-    let iterationCount = iterationCount |> AnimationIterationCount.toString;
+    let duration = duration->Timing.toString;
+    let delay = delay->Timing.toString;
+    let direction = direction->AnimationDirection.toString;
+    let timingFunction = timingFunction->TimingFunction.toString;
+    let fillMode = fillMode->AnimationFillMode.toString;
+    let playState = playState->AnimationPlayState.toString;
+    let iterationCount = iterationCount->AnimationIterationCount.toString;
     {j|$name $duration $timingFunction $delay $iterationCount $direction $fillMode $playState|j};
   };
 };
@@ -1545,37 +1545,37 @@ module FilterFunction = {
   let toString = (x: t) =>
     switch (x) {
     | `blur(x) =>
-      let x = x |> Length.toString;
+      let x = x->Length.toString;
       {j|blur($x)|j};
     | `brightness(x) =>
-      let x = x |> NumberPercentage.toString;
+      let x = x->NumberPercentage.toString;
       {j|brightness($x)|j};
     | `contrast(x) =>
-      let x = x |> NumberPercentage.toString;
+      let x = x->NumberPercentage.toString;
       {j|contrast($x)|j};
     | `dropShadow(x, y, blur, color) =>
-      let x = x |> Length.toString;
-      let y = y |> Length.toString;
-      let blur = blur |> Length.toString;
-      let color = color |> Color.toString;
+      let x = x->Length.toString;
+      let y = y->Length.toString;
+      let blur = blur->Length.toString;
+      let color = color->Color.toString;
       {j|drop-shadow($x $y $blur $color)|j};
     | `grayscale(x) =>
-      let x = x |> NumberPercentage.toString;
+      let x = x->NumberPercentage.toString;
       {j|grayscale($x)|j};
     | `hueRotate(x) =>
-      let x = x |> Angle.toString;
+      let x = x->Angle.toString;
       {j|hue-rotate($x)|j};
     | `invert(x) =>
-      let x = x |> NumberPercentage.toString;
+      let x = x->NumberPercentage.toString;
       {j|invert($x)|j};
     | `opacity(x) =>
-      let x = x |> NumberPercentage.toString;
+      let x = x->NumberPercentage.toString;
       {j|opacity($x)|j};
     | `saturate(x) =>
-      let x = x |> NumberPercentage.toString;
+      let x = x->NumberPercentage.toString;
       {j|saturate($x)|j};
     | `sepia(x) =>
-      let x = x |> NumberPercentage.toString;
+      let x = x->NumberPercentage.toString;
       {j|sepia($x)|j};
     };
 };
@@ -1585,8 +1585,8 @@ module Filter = {
 
   let toString = (x: t) =>
     switch (x) {
-    | #Url.t as x => x |> Url.toString
-    | #FilterFunction.t as x => x |> FilterFunction.toString
+    | #Url.t as x => x->Url.toString
+    | #FilterFunction.t as x => x->FilterFunction.toString
     | `none => "none"
     };
 };
@@ -1600,7 +1600,7 @@ module Flex = {
       | `auto => "auto"
       | `none => "none"
       | `some(grow, shrink, basis) =>
-        let basis = basis |> LengthPercentageAuto.toString;
+        let basis = basis->LengthPercentageAuto.toString;
         {j|$grow $shrink $basis|j};
       };
   };
@@ -1630,8 +1630,8 @@ module Flex = {
 
   module Flow = {
     let toString = (direction, wrap) => {
-      let direction = direction |> Direction.toString;
-      let wrap = wrap |> Wrap.toString;
+      let direction = direction->Direction.toString;
+      let wrap = wrap->Wrap.toString;
       {j|$direction $wrap|j};
     };
   };
@@ -1704,7 +1704,7 @@ module Declarations = {
   external unbox: list(declaration) => list(Declaration.t(_)) = "%identity";
 
   let toDict: list(declaration) => Js.Dict.t(_) =
-    declarations => declarations |> unbox |> List.flatten |> Js.Dict.fromList;
+    declarations => declarations->unbox->List.flatten->Js.Dict.fromList;
 };
 
 module Selector = {
@@ -1714,129 +1714,125 @@ module Selector = {
 
 /* ===== 🗂 CSS Properties ===== */
 
-let p = (prop, value) => [(prop, value)] |> Declaration.box;
+let p = (prop, value) => [(prop, value)]->Declaration.box;
 
 let label = (x: string) => p("label", x);
 
-let display = x => p("display", x |> Display.toString);
+let display = x => p("display", x->Display.toString);
 
-let position = x => p("position", x |> Position.toString);
+let position = x => p("position", x->Position.toString);
 
-let top = x => p("top", x |> LengthPercentageAuto.toString);
-let bottom = x => p("bottom", x |> LengthPercentageAuto.toString);
-let left = x => p("left", x |> LengthPercentageAuto.toString);
-let right = x => p("right", x |> LengthPercentageAuto.toString);
+let top = x => p("top", x->LengthPercentageAuto.toString);
+let bottom = x => p("bottom", x->LengthPercentageAuto.toString);
+let left = x => p("left", x->LengthPercentageAuto.toString);
+let right = x => p("right", x->LengthPercentageAuto.toString);
 
-let width = x => p("width", x |> LengthPercentageAuto.toString);
-let minWidth = x => p("min-width", x |> LengthPercentageAuto.toString);
-let maxWidth = x => p("max-width", x |> LengthPercentageNone.toString);
-let height = x => p("height", x |> LengthPercentageAuto.toString);
-let minHeight = x => p("min-height", x |> LengthPercentageAuto.toString);
-let maxHeight = x => p("max-height", x |> LengthPercentageNone.toString);
+let width = x => p("width", x->LengthPercentageAuto.toString);
+let minWidth = x => p("min-width", x->LengthPercentageAuto.toString);
+let maxWidth = x => p("max-width", x->LengthPercentageNone.toString);
+let height = x => p("height", x->LengthPercentageAuto.toString);
+let minHeight = x => p("min-height", x->LengthPercentageAuto.toString);
+let maxHeight = x => p("max-height", x->LengthPercentageNone.toString);
 
-let margin = x => p("margin", x |> LengthPercentageAuto.toString);
+let margin = x => p("margin", x->LengthPercentageAuto.toString);
 let margin2 = (v, h) => p("margin", LengthPercentageAuto.toString2(v, h));
 let margin3 = (t, h, b) =>
   p("margin", LengthPercentageAuto.toString3(t, h, b));
 let margin4 = (t, r, b, l) =>
   p("margin", LengthPercentageAuto.toString4(t, r, b, l));
 
-let marginLeft = x => p("marginLeft", x |> LengthPercentageAuto.toString);
-let marginRight = x => p("marginRight", x |> LengthPercentageAuto.toString);
-let marginTop = x => p("marginTop", x |> LengthPercentageAuto.toString);
-let marginBottom = x => p("marginBottom", x |> LengthPercentageAuto.toString);
+let marginLeft = x => p("marginLeft", x->LengthPercentageAuto.toString);
+let marginRight = x => p("marginRight", x->LengthPercentageAuto.toString);
+let marginTop = x => p("marginTop", x->LengthPercentageAuto.toString);
+let marginBottom = x => p("marginBottom", x->LengthPercentageAuto.toString);
 
-let padding = x => p("padding", x |> LengthPercentage.toString);
+let padding = x => p("padding", x->LengthPercentage.toString);
 let padding2 = (v, h) => p("padding", LengthPercentage.toString2(v, h));
 let padding3 = (t, h, b) =>
   p("padding", LengthPercentage.toString3(t, h, b));
 let padding4 = (t, r, b, l) =>
   p("padding", LengthPercentage.toString4(t, r, b, l));
 
-let paddingLeft = x => p("paddingLeft", x |> LengthPercentage.toString);
-let paddingRight = x => p("paddingRight", x |> LengthPercentage.toString);
-let paddingTop = x => p("paddingTop", x |> LengthPercentage.toString);
-let paddingBottom = x => p("paddingBottom", x |> LengthPercentage.toString);
+let paddingLeft = x => p("paddingLeft", x->LengthPercentage.toString);
+let paddingRight = x => p("paddingRight", x->LengthPercentage.toString);
+let paddingTop = x => p("paddingTop", x->LengthPercentage.toString);
+let paddingBottom = x => p("paddingBottom", x->LengthPercentage.toString);
 
 let border = (width, style, color) =>
   p("border", Border.toString(width, style, color));
-let borderWidth = x => p("borderWidth", x |> BorderWidth.toString);
-let borderStyle = x => p("borderStyle", x |> BorderStyle.toString);
-let borderColor = x => p("borderColor", x |> Color.toString);
+let borderWidth = x => p("borderWidth", x->BorderWidth.toString);
+let borderStyle = x => p("borderStyle", x->BorderStyle.toString);
+let borderColor = x => p("borderColor", x->Color.toString);
 
 let borderLeft = (width, style, color) =>
   p("borderLeft", Border.toString(width, style, color));
-let borderLeftWidth = x => p("borderLeftWidth", x |> BorderWidth.toString);
-let borderLeftStyle = x => p("borderLeftStyle", x |> BorderStyle.toString);
-let borderLeftColor = x => p("borderLeftColor", x |> Color.toString);
+let borderLeftWidth = x => p("borderLeftWidth", x->BorderWidth.toString);
+let borderLeftStyle = x => p("borderLeftStyle", x->BorderStyle.toString);
+let borderLeftColor = x => p("borderLeftColor", x->Color.toString);
 
 let borderRight = (width, style, color) =>
   p("borderRight", Border.toString(width, style, color));
-let borderRightWidth = x => p("borderRightWidth", x |> BorderWidth.toString);
-let borderRightStyle = x => p("borderRightStyle", x |> BorderStyle.toString);
-let borderRightColor = x => p("borderRightColor", x |> Color.toString);
+let borderRightWidth = x => p("borderRightWidth", x->BorderWidth.toString);
+let borderRightStyle = x => p("borderRightStyle", x->BorderStyle.toString);
+let borderRightColor = x => p("borderRightColor", x->Color.toString);
 
 let borderTop = (width, style, color) =>
   p("borderTop", Border.toString(width, style, color));
-let borderTopWidth = x => p("borderTopWidth", x |> BorderWidth.toString);
-let borderTopStyle = x => p("borderTopStyle", x |> BorderStyle.toString);
-let borderTopColor = x => p("borderTopColor", x |> Color.toString);
+let borderTopWidth = x => p("borderTopWidth", x->BorderWidth.toString);
+let borderTopStyle = x => p("borderTopStyle", x->BorderStyle.toString);
+let borderTopColor = x => p("borderTopColor", x->Color.toString);
 
 let borderBottom = (width, style, color) =>
   p("borderBottom", Border.toString(width, style, color));
-let borderBottomWidth = x =>
-  p("borderBottomWidth", x |> BorderWidth.toString);
-let borderBottomStyle = x =>
-  p("borderBottomStyle", x |> BorderStyle.toString);
-let borderBottomColor = x => p("borderBottomColor", x |> Color.toString);
+let borderBottomWidth = x => p("borderBottomWidth", x->BorderWidth.toString);
+let borderBottomStyle = x => p("borderBottomStyle", x->BorderStyle.toString);
+let borderBottomColor = x => p("borderBottomColor", x->Color.toString);
 
-let borderRadius = x => p("borderRadius", x |> LengthPercentage.toString);
+let borderRadius = x => p("borderRadius", x->LengthPercentage.toString);
 let borderTopLeftRadius = x =>
-  p("borderTopLeftRadius", x |> LengthPercentage.toString);
+  p("borderTopLeftRadius", x->LengthPercentage.toString);
 let borderTopRightRadius = x =>
-  p("borderTopRightRadius", x |> LengthPercentage.toString);
+  p("borderTopRightRadius", x->LengthPercentage.toString);
 let borderBottomLeftRadius = x =>
-  p("borderBottomLeftRadius", x |> LengthPercentage.toString);
+  p("borderBottomLeftRadius", x->LengthPercentage.toString);
 let borderBottomRightRadius = x =>
-  p("borderBottomRightRadius", x |> LengthPercentage.toString);
+  p("borderBottomRightRadius", x->LengthPercentage.toString);
 
-let borderCollapse = x => p("borderCollapse", x |> BorderCollapse.toString);
-let borderSpacing = x => p("borderSpacing", x |> Length.toString);
+let borderCollapse = x => p("borderCollapse", x->BorderCollapse.toString);
+let borderSpacing = x => p("borderSpacing", x->Length.toString);
 let borderSpacing2 = (x, y) => p("borderSpacing", Length.toString2(x, y));
 
 /* NOTE: `background` implementation is redundant due to its complexity */
 let backgroundAttachment = x =>
-  p("backgroundAttachment", x |> BackgroundAttachment.toString);
+  p("backgroundAttachment", x->BackgroundAttachment.toString);
 let backgroundAttachments = x =>
   p(
     "backgroundAttachment",
     x->List.map(BackgroundAttachment.toString)->CssHelpers.joinWith(", "),
   );
 let backgroundBlendMode = x =>
-  p("backgroundBlendMode", x |> BackgroundBlendMode.toString);
+  p("backgroundBlendMode", x->BackgroundBlendMode.toString);
 let backgroundBlendModes = x =>
   p(
     "backgroundBlendMode",
     x->List.map(BackgroundBlendMode.toString)->CssHelpers.joinWith(", "),
   );
-let backgroundClip = x => p("backgroundClip", x |> BackgroundBox.toString);
-let backgroundColor = x => p("backgroundColor", x |> Color.toString);
-let backgroundImage = x =>
-  p("backgroundImage", x |> BackgroundImage.toString);
+let backgroundClip = x => p("backgroundClip", x->BackgroundBox.toString);
+let backgroundColor = x => p("backgroundColor", x->Color.toString);
+let backgroundImage = x => p("backgroundImage", x->BackgroundImage.toString);
 let backgroundImages = x =>
   p(
     "backgroundImage",
     x->List.map(BackgroundImage.toString)->CssHelpers.joinWith(", "),
   );
-let backgroundOrigin = x =>
-  p("backgroundOrigin", x |> BackgroundBox.toString);
+let backgroundOrigin = x => p("backgroundOrigin", x->BackgroundBox.toString);
 let backgroundPosition = x =>
-  p("backgroundPosition", x |> LengthPercentage.toString2);
+  p("backgroundPosition", x->LengthPercentage.toString2);
 let backgroundRepeat = x =>
-  p("backgroundRepeat", x |> BackgroundRepeat.toString);
+  p("backgroundRepeat", x->BackgroundRepeat.toString);
 let backgroundRepeat2 = x =>
-  p("backgroundRepeat", x |> BackgroundRepeat.toString2);
-let backgroundSize = x => p("backgroundSize", x |> BackgroundSize.toString);
+  p("backgroundRepeat", x->BackgroundRepeat.toString2);
+let backgroundSize = x => p("backgroundSize", x->BackgroundSize.toString);
 let backgroundSizes = x =>
   p(
     "backgroundSize",
@@ -1856,20 +1852,19 @@ let boxShadows = x =>
     ->CssHelpers.joinWith(", "),
   );
 
-let clipPath = x => p("clipPath", x |> Url.toString);
+let clipPath = x => p("clipPath", x->Url.toString);
 
-let visibility = x => p("visibility", x |> Visibility.toString);
-let backfaceVisibility = x =>
-  p("backfaceVisibility", x |> Visibility.toString);
+let visibility = x => p("visibility", x->Visibility.toString);
+let backfaceVisibility = x => p("backfaceVisibility", x->Visibility.toString);
 
-let color = x => p("color", x |> Color.toString);
+let color = x => p("color", x->Color.toString);
 
 let fontFamily = (x: string) => p("fontFamily", x);
-let fontSize = x => p("fontSize", x |> LengthPercentage.toString);
+let fontSize = x => p("fontSize", x->LengthPercentage.toString);
 let fontWeight = (x: int) => p("fontWeight", {j|$x|j});
-let fontStyle = x => p("fontStyle", x |> FontStyle.toString);
-let fontVariant = x => p("fontVariant", x |> FontVariant.toString);
-let fontKerning = x => p("fontKerning", x |> FontKerning.toString);
+let fontStyle = x => p("fontStyle", x->FontStyle.toString);
+let fontVariant = x => p("fontVariant", x->FontVariant.toString);
+let fontKerning = x => p("fontKerning", x->FontKerning.toString);
 let src = (srcs: list((FontSrc.src, option(FontSrc.format)))) =>
   p(
     "src",
@@ -1877,19 +1872,18 @@ let src = (srcs: list((FontSrc.src, option(FontSrc.format)))) =>
     ->List.map(((src, format)) => FontSrc.toString(~format?, src))
     ->CssHelpers.joinWith(", "),
   );
-let lineHeight = x => p("lineHeight", x |> LineHeight.toString);
-let letterSpacing = x => p("letterSpacing", x |> LetterSpacing.toString);
-let hyphens = x => p("hyphens", x |> Hyphens.toString);
+let lineHeight = x => p("lineHeight", x->LineHeight.toString);
+let letterSpacing = x => p("letterSpacing", x->LetterSpacing.toString);
+let hyphens = x => p("hyphens", x->Hyphens.toString);
 
-let textAlign = x => p("textAlign", x |> TextAlign.toString);
-let textDecoration = x =>
-  p("textDecoration", x |> TextDecorationLine.toString);
-let textDecorationColor = x => p("textDecorationColor", x |> Color.toString);
+let textAlign = x => p("textAlign", x->TextAlign.toString);
+let textDecoration = x => p("textDecoration", x->TextDecorationLine.toString);
+let textDecorationColor = x => p("textDecorationColor", x->Color.toString);
 let textDecorationStyle = x =>
-  p("textDecorationStyle", x |> TextDecorationStyle.toString);
-let textIndent = x => p("textIndent", x |> LengthPercentage.toString);
-let textOverflow = x => p("textOverflow", x |> TextOverflow.toString);
-let textTransform = x => p("textTransform", x |> TextTransform.toString);
+  p("textDecorationStyle", x->TextDecorationStyle.toString);
+let textIndent = x => p("textIndent", x->LengthPercentage.toString);
+let textOverflow = x => p("textOverflow", x->TextOverflow.toString);
+let textTransform = x => p("textTransform", x->TextTransform.toString);
 let textShadow = (~x=`zero, ~y=`zero, ~blur=`zero, color) =>
   p("textShadow", color |> TextShadow.toString(~x, ~y, ~blur));
 let textShadows = xs =>
@@ -1902,49 +1896,49 @@ let textShadows = xs =>
     ->CssHelpers.joinWith(", "),
   );
 
-let float = x => p("float", x |> Float.toString);
+let float = x => p("float", x->Float.toString);
 
-let clear = x => p("clear", x |> Clear.toString);
+let clear = x => p("clear", x->Clear.toString);
 
-let overflow = x => p("overflow", x |> Overflow.toString);
-let overflowX = x => p("overflow-x", x |> Overflow.toString);
-let overflowY = x => p("overflow-y", x |> Overflow.toString);
-let overflowWrap = x => p("overflow-wrap", x |> WordWrap.toString);
+let overflow = x => p("overflow", x->Overflow.toString);
+let overflowX = x => p("overflow-x", x->Overflow.toString);
+let overflowY = x => p("overflow-y", x->Overflow.toString);
+let overflowWrap = x => p("overflow-wrap", x->WordWrap.toString);
 
-let whiteSpace = x => p("whiteSpace", x |> WhiteSpace.toString);
+let whiteSpace = x => p("whiteSpace", x->WhiteSpace.toString);
 
-let userSelect = x => p("userSelect", x |> UserSelect.toString);
+let userSelect = x => p("userSelect", x->UserSelect.toString);
 
-let verticalAlign = x => p("verticalAlign", x |> VerticalAlign.toString);
+let verticalAlign = x => p("verticalAlign", x->VerticalAlign.toString);
 
-let wordBreak = x => p("wordBreak", x |> WordBreak.toString);
-let wordSpacing = x => p("wordSpacing", x |> WordSpacing.toString);
-let wordWrap = x => p("wordWrap", x |> WordWrap.toString);
+let wordBreak = x => p("wordBreak", x->WordBreak.toString);
+let wordSpacing = x => p("wordSpacing", x->WordSpacing.toString);
+let wordWrap = x => p("wordWrap", x->WordWrap.toString);
 
-let direction = x => p("direction", x |> Direction.toString);
+let direction = x => p("direction", x->Direction.toString);
 
 let listStyle = (style, position, image) =>
   p("listStyle", ListStyle.toString(style, position, image));
-let listStyleType = x => p("listStyleType", x |> ListStyleType.toString);
+let listStyleType = x => p("listStyleType", x->ListStyleType.toString);
 let listStylePosition = x =>
-  p("listStylePosition", x |> ListStylePosition.toString);
-let listStyleImage = x => p("listStyleImage", x |> ListStyleImage.toString);
+  p("listStylePosition", x->ListStylePosition.toString);
+let listStyleImage = x => p("listStyleImage", x->ListStyleImage.toString);
 
 let opacity = (x: float) => p("opacity", {j|$x|j});
 
-let cursor = x => p("cursor", x |> Cursor.toString);
+let cursor = x => p("cursor", x->Cursor.toString);
 
-let pointerEvents = x => p("pointerEvents", x |> PointerEvents.toString);
+let pointerEvents = x => p("pointerEvents", x->PointerEvents.toString);
 
 let outline = (size, style, color) =>
   p("outline", Outline.toString(size, style, color));
 
-let outlineStyle = x => p("outlineStyle", x |> OutlineStyle.toString);
-let outlineWidth = x => p("outlineWidth", x |> Length.toString);
-let outlineColor = x => p("outlineColor", x |> Color.toString);
-let outlineOffset = x => p("outlineOffset", x |> Length.toString);
+let outlineStyle = x => p("outlineStyle", x->OutlineStyle.toString);
+let outlineWidth = x => p("outlineWidth", x->Length.toString);
+let outlineColor = x => p("outlineColor", x->Color.toString);
+let outlineOffset = x => p("outlineOffset", x->Length.toString);
 
-let tableLayout = x => p("tableLayout", x |> TableLayout.toString);
+let tableLayout = x => p("tableLayout", x->TableLayout.toString);
 
 let transition = ((property: string, duration, timingFunction, delay)) =>
   p(
@@ -1963,12 +1957,12 @@ let transitions = xs =>
   );
 
 let transitionProperty = (x: string) => p("transitionProperty", x);
-let transitionDuration = x => p("transitionDuration", x |> Timing.toString);
-let transitionDelay = x => p("transitionDelay", x |> Timing.toString);
+let transitionDuration = x => p("transitionDuration", x->Timing.toString);
+let transitionDelay = x => p("transitionDelay", x->Timing.toString);
 let transitionTimingFunction = x =>
-  p("transitionTimingFunction", x |> TimingFunction.toString);
+  p("transitionTimingFunction", x->TimingFunction.toString);
 
-let transform = x => p("transform", x |> Transform.toString);
+let transform = x => p("transform", x->Transform.toString);
 let transforms = xs =>
   p(
     "transform",
@@ -1978,23 +1972,23 @@ let transformOrigin = (x, y) =>
   p("transformOrigin", LengthPercentage.toString2(x, y));
 let transformOrigin3d = (x, y, z) =>
   p("transformOrigin", LengthPercentage.toString3(x, y, z));
-let transformStyle = x => p("transformStyle", x |> TransformStyle.toString);
+let transformStyle = x => p("transformStyle", x->TransformStyle.toString);
 
-let perspective = x => p("perspective", x |> Perspective.toString);
+let perspective = x => p("perspective", x->Perspective.toString);
 
 let perspectiveOrigin = (x, y) =>
   p("perspectiveOrigin", LengthPercentage.toString2(x, y));
 
-let fill = x => p("fill", x |> Color.toString);
+let fill = x => p("fill", x->Color.toString);
 let fillOpacity = (x: float) => p("fillOpacity", {j|$x|j});
-let fillRule = x => p("fillRule", x |> FillRule.toString);
-let stroke = x => p("stroke", x |> Color.toString);
-let strokeWidth = x => p("strokeWidth", x |> LengthPercentage.toString);
+let fillRule = x => p("fillRule", x->FillRule.toString);
+let stroke = x => p("stroke", x->Color.toString);
+let strokeWidth = x => p("strokeWidth", x->LengthPercentage.toString);
 let strokeOpacity = (x: float) => p("strokeOpacity", {j|$x|j});
 let strokeMiterlimit = (x: float) => p("strokeMiterlimit", {j|$x|j});
-let strokeLinecap = x => p("strokeLinecap", x |> StrokeLinecap.toString);
-let strokeLinejoin = x => p("strokeLinejoin", x |> StrokeLinejoin.toString);
-let stopColor = x => p("stopColor", x |> Color.toString);
+let strokeLinecap = x => p("strokeLinecap", x->StrokeLinecap.toString);
+let strokeLinejoin = x => p("strokeLinejoin", x->StrokeLinejoin.toString);
+let stopColor = x => p("stopColor", x->Color.toString);
 let stopOpacity = (x: float) => p("stopOpacity", {j|$x|j});
 
 let animation =
@@ -2054,34 +2048,34 @@ let animations = xs =>
     ->CssHelpers.joinWith(", "),
   );
 
-let animationDelay = x => p("animationDelay", x |> Timing.toString);
+let animationDelay = x => p("animationDelay", x->Timing.toString);
 let animationDelays = x =>
   p(
     "animationDelay",
     x->List.map(Timing.toString)->CssHelpers.joinWith(", "),
   );
 let animationDirection = x =>
-  p("animationDirection", x |> AnimationDirection.toString);
+  p("animationDirection", x->AnimationDirection.toString);
 let animationDirections = x =>
   p(
     "animationDirection",
     x->List.map(AnimationDirection.toString)->CssHelpers.joinWith(", "),
   );
-let animationDuration = x => p("animationDuration", x |> Timing.toString);
+let animationDuration = x => p("animationDuration", x->Timing.toString);
 let animationDurations = x =>
   p(
     "animationDuration",
     x->List.map(Timing.toString)->CssHelpers.joinWith(", "),
   );
 let animationFillMode = x =>
-  p("animationFillMode", x |> AnimationFillMode.toString);
+  p("animationFillMode", x->AnimationFillMode.toString);
 let animationFillModes = x =>
   p(
     "animationFillMode",
     x->List.map(AnimationFillMode.toString)->CssHelpers.joinWith(", "),
   );
 let animationIterationCount = x =>
-  p("animationIterationCount", x |> AnimationIterationCount.toString);
+  p("animationIterationCount", x->AnimationIterationCount.toString);
 let animationIterationCounts = x =>
   p(
     "animationIterationCount",
@@ -2091,38 +2085,38 @@ let animationName = (x: string) => p("animationName", x);
 let animationNames = (x: list(string)) =>
   p("animationName", x->CssHelpers.joinWith(", "));
 let animationPlayState = x =>
-  p("animationPlayState", x |> AnimationPlayState.toString);
+  p("animationPlayState", x->AnimationPlayState.toString);
 let animationPlayStates = x =>
   p(
     "animationPlayState",
     x->List.map(AnimationPlayState.toString)->CssHelpers.joinWith(", "),
   );
 let animationTimingFunction = x =>
-  p("animationTimingFunction", x |> TimingFunction.toString);
+  p("animationTimingFunction", x->TimingFunction.toString);
 let animationTimingFunctions = x =>
   p(
     "animationTimingFunction",
     x->List.map(TimingFunction.toString)->CssHelpers.joinWith(", "),
   );
 
-let filter = x => p("filter", x |> Filter.toString);
+let filter = x => p("filter", x->Filter.toString);
 let filters = x =>
   p("filter", x->List.map(Filter.toString)->CssHelpers.joinWith(" "));
 
-let flex = x => p("flex", x |> Flex.Flex.toString);
+let flex = x => p("flex", x->Flex.Flex.toString);
 let flexGrow = (x: float) => p("flexGrow", {j|$x|j});
 let flexShrink = (x: float) => p("flexShrink", {j|$x|j});
-let flexBasis = x => p("flexBasis", x |> LengthPercentageAuto.toString);
-let flexDirection = x => p("flexDirection", x |> Flex.Direction.toString);
-let flexWrap = x => p("flexWrap", x |> Flex.Wrap.toString);
+let flexBasis = x => p("flexBasis", x->LengthPercentageAuto.toString);
+let flexDirection = x => p("flexDirection", x->Flex.Direction.toString);
+let flexWrap = x => p("flexWrap", x->Flex.Wrap.toString);
 let flexFlow = (direction, wrap) =>
   p("flex-flow", Flex.Flow.toString(direction, wrap));
-let alignSelf = x => p("alignSelf", x |> Flex.Align.toString);
-let alignItems = x => p("alignItems", x |> Flex.Align.toString);
-let alignContent = x => p("alignContent", x |> Flex.Align.toString);
-let justifySelf = x => p("justifySelf", x |> Flex.Justify.toString);
-let justifyItems = x => p("justifyItems", x |> Flex.Justify.toString);
-let justifyContent = x => p("justifyContent", x |> Flex.Justify.toString);
+let alignSelf = x => p("alignSelf", x->Flex.Align.toString);
+let alignItems = x => p("alignItems", x->Flex.Align.toString);
+let alignContent = x => p("alignContent", x->Flex.Align.toString);
+let justifySelf = x => p("justifySelf", x->Flex.Justify.toString);
+let justifyItems = x => p("justifyItems", x->Flex.Justify.toString);
+let justifyContent = x => p("justifyContent", x->Flex.Justify.toString);
 let order = (x: int) => p("order", {j|$x|j});
 
 let zIndex = (x: int) => p("z-index", {j|$x|j});
@@ -2130,7 +2124,7 @@ let zIndex = (x: int) => p("z-index", {j|$x|j});
 /* ===== 🔖 CSS Selectors ===== */
 
 let select = (selector, declarations) =>
-  [(selector, declarations |> Declarations.toDict)] |> Selector.box;
+  [(selector, declarations->Declarations.toDict)]->Selector.box;
 
 let active = select(":active");
 let after = select("::after");
@@ -2186,13 +2180,13 @@ let supports = (query: string, declarations) =>
 /* ===== 👩‍🎤 Emotion bindings ===== */
 
 [@bs.module "emotion"] external css: Js.Dict.t(string) => string = "css";
-let css = declarations => declarations |> Declarations.toDict |> css;
+let css = declarations => declarations->Declarations.toDict->css;
 
 [@bs.module "emotion"]
 external injectGlobal: Js.Dict.t(Js.Dict.t(string)) => unit = "injectGlobal";
 let global = (selector, declarations) => {
   let css = Js.Dict.empty();
-  css->(Js.Dict.set(selector, declarations |> Declarations.toDict));
+  css->(Js.Dict.set(selector, declarations->Declarations.toDict));
   css->injectGlobal;
 };
 

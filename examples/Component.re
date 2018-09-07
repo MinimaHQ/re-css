@@ -6,8 +6,6 @@ let make = _ => {
   ...component,
   render: _ =>
     <div className=Css.container>
-      <div className={Css.text(~size=30)}>
-        {"Hi!" |> ReasonReact.string}
-      </div>
+      <div className={Css.text(~size=30)}> "Hi!"->ReasonReact.string </div>
     </div>,
 };
