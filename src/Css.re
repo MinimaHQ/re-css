@@ -1438,12 +1438,12 @@ module AnimationFillMode = {
 };
 
 module AnimationIterationCount = {
-  type t = [ | `infinite | `n(int)];
+  type t = [ | `infinite | `i(int)];
 
   let toString = (x: t) =>
     switch (x) {
     | `infinite => "infinite"
-    | `n(x) => {j|$x|j}
+    | `i(x) => {j|$x|j}
     };
 };
 
@@ -2190,7 +2190,19 @@ let global = (selector, declarations) => {
   css->injectGlobal;
 };
 
-/* TODO: @keyframes */
+[@bs.module "emotion"]
+external makeKeyframes: Js.Dict.t(Js.Dict.t(string)) => string = "keyframes";
+let keyframes = (frames: list((int, list(declaration)))) =>
+  frames
+  ->List.reduce(
+      Js.Dict.empty(),
+      (acc, item) => {
+        let stop = item->fst;
+        acc->Js.Dict.set({j|$stop%|j}, item->snd->Declarations.toDict);
+        acc;
+      },
+    )
+  ->makeKeyframes;
 
 /* ===== 🌏 Global @-rules ===== */
 

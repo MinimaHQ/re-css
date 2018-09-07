@@ -1,5 +1,11 @@
 open Css
 
+let bounce = keyframes [
+  (0,   [ transform (`translateY `zero); ]);
+  (50,  [ transform (`translateY (`px (-20))); ]);
+  (100, [ transform (`translateY `zero); ]);
+]
+
 let container = css [
   display `flex;
   flexFlow `row `nowrap;
@@ -24,6 +30,9 @@ let text ~size = css [
   color (`hex "fff");
   fontSize (`px size);
   fontWeight 700;
+  animationName bounce;
+  animationDuration (`ms 300);
+  animationIterationCount (`i 7);
 
   (* Transition takes tuple of (property, duration, timing-function, delay) *)
   transition ("font-size", `ms 100, `easeInOut, `ms 0);
