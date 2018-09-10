@@ -1720,6 +1720,8 @@ let label = (x: string) => p("label", x);
 
 let display = x => p("display", x->Display.toString);
 
+let boxSizing = x => p("boxSizing", x->BoxSizing.toString);
+
 let position = x => p("position", x->Position.toString);
 
 let top = x => p("top", x->LengthPercentageAuto.toString);
