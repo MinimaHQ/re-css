@@ -2123,6 +2123,8 @@ let order = (x: int) => p("order", {j|$x|j});
 
 let zIndex = (x: int) => p("z-index", {j|$x|j});
 
+let unsafe = p;
+
 /* ===== 🔖 CSS Selectors ===== */
 
 let select = (selector, declarations) =>
