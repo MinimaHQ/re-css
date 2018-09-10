@@ -1591,6 +1591,19 @@ module Filter = {
     };
 };
 
+module Appearance = {
+  /* NOTE: Appearance: incomplete list. Status: Working Draft */
+  type t = [ | `none | `button | `checkbox | `radio];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `none => "none"
+    | `button => "button"
+    | `checkbox => "checkbox"
+    | `radio => "radio"
+    };
+};
+
 module Flex = {
   module Flex = {
     type t = [ | `auto | `none | `some(float, float, LengthPercentageAuto.t)];
@@ -2104,6 +2117,8 @@ let animationTimingFunctions = x =>
 let filter = x => p("filter", x->Filter.toString);
 let filters = x =>
   p("filter", x->List.map(Filter.toString)->CssHelpers.joinWith(" "));
+
+let appearance = x => p("appearance", x->Appearance.toString);
 
 let flex = x => p("flex", x->Flex.Flex.toString);
 let flexGrow = (x: float) => p("flexGrow", {j|$x|j});
