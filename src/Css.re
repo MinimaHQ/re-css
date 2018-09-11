@@ -240,9 +240,9 @@ module Color = {
   let toString = (x: t) =>
     switch (x) {
     | `rgb(r, g, b) => {j|rgb($r, $g, $b)|j}
-    | `rgba(r, g, b, a) => {j|rgb($r, $g, $b, $a)|j}
+    | `rgba(r, g, b, a) => {j|rgba($r, $g, $b, $a)|j}
     | `hsl(h, s, l) => {j|hsl($h, $s%, $l%)|j}
-    | `hsla(h, s, l, a) => {j|hsl($h, $s%, $l%, $a)|j}
+    | `hsla(h, s, l, a) => {j|hsla($h, $s%, $l%, $a)|j}
     | `hex(x) => "#" ++ x
     | `transparent => "transparent"
     | `currentColor => "currentColor"
