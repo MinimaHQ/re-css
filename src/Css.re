@@ -844,6 +844,33 @@ module FontKerning = {
     };
 };
 
+module FontStretch = {
+  type t = [
+    | `normal
+    | `semiCondensed
+    | `condensed
+    | `extraCondensed
+    | `ultraCondensed
+    | `semiExpanded
+    | `expanded
+    | `extraExpanded
+    | `ultraExpanded
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `normal => "normal"
+    | `semiCondensed => "semi-condensed"
+    | `condensed => "condensed"
+    | `extraCondensed => "extra-condensed"
+    | `ultraCondensed => "ultra-condensed"
+    | `semiExpanded => "semi-expanded"
+    | `expanded => "expanded"
+    | `extraExpanded => "extra-expanded"
+    | `ultraExpanded => "ultra-expanded"
+    };
+};
+
 module FontSrc = {
   type src = [ | `url(string) | `local(string)];
   type format = [ | `woff | `woff2 | `ttf | `eot | `svg];
@@ -1880,6 +1907,7 @@ let fontWeight = (x: int) => p("fontWeight", {j|$x|j});
 let fontStyle = x => p("fontStyle", x->FontStyle.toString);
 let fontVariant = x => p("fontVariant", x->FontVariant.toString);
 let fontKerning = x => p("fontKerning", x->FontKerning.toString);
+let fontStretch = x => p("fontStretch", x->FontStretch.toString);
 let src = (srcs: list((FontSrc.src, option(FontSrc.format)))) =>
   p(
     "src",
