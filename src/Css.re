@@ -1238,7 +1238,7 @@ module Timing = {
     switch (x) {
     | `s(x) => {j|$(x)s|j}
     | `ms(x) => {j|$(x)ms|j}
-    | `zero => "0"
+    | `zero => "0s"
     };
 };
 
