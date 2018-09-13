@@ -34,10 +34,10 @@ let text ~size = css [
   animationDuration (`ms 300);
   animationIterationCount (`i 7);
 
-  (* Transition takes tuple of (property, duration, timing-function, delay) *)
-  transition ("font-size", `ms 100, `easeInOut, `ms 0);
+  (* Transition takes property, duration, timing-function & delay *)
+  transition "font-size" (`ms 100) `easeInOut `zero;
 
-  (* You can define multiple transitions as well *)
+  (* You can define multiple transitions by packing them into list of tuples *)
   transitions [
     ("font-size", `ms 100, `easeInOut, `ms 0);
   ];

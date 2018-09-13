@@ -1985,7 +1985,7 @@ let outlineOffset = x => p("outlineOffset", x->Length.toString);
 
 let tableLayout = x => p("tableLayout", x->TableLayout.toString);
 
-let transition = ((property: string, duration, timingFunction, delay)) =>
+let transition = (property: string, duration, timingFunction, delay) =>
   p(
     "transition",
     Transition.toString(~property, ~duration, ~delay, ~timingFunction),
