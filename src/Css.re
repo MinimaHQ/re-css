@@ -1308,11 +1308,12 @@ module Transform = {
     | `translateX(LengthPercentage.t)
     | `translateY(LengthPercentage.t)
     | `translateZ(LengthPercentage.t)
-    | `scale(float, float)
-    | `scale3d(float, float, float)
+    | `scale(float)
+    | `scaleXY(float, float)
     | `scaleX(float)
     | `scaleY(float)
     | `scaleZ(float)
+    | `scale3d(float, float, float)
     | `rotate(Angle.t)
     | `rotate3d(float, float, float, Angle.t)
     | `rotateX(Angle.t)
@@ -1364,11 +1365,12 @@ module Transform = {
     | `translateZ(z) =>
       let z = z->LengthPercentage.toString;
       {j|translateZ($z)|j};
-    | `scale(x, y) => {j|scale($x, $y)|j}
-    | `scale3d(x, y, z) => {j|scale3d($x, $y, $z)|j}
+    | `scale(x) => {j|scale($x)|j}
+    | `scaleXY(x, y) => {j|scale($x, $y)|j}
     | `scaleX(x) => {j|scaleX($x)|j}
     | `scaleY(y) => {j|scaleY($y)|j}
     | `scaleZ(z) => {j|scaleZ($z)|j}
+    | `scale3d(x, y, z) => {j|scale3d($x, $y, $z)|j}
     | `rotate(a) =>
       let a = a->Angle.toString;
       {j|rotate($a)|j};
