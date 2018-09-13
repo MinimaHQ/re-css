@@ -2038,16 +2038,14 @@ let stopOpacity = (x: float) => p("stopOpacity", {j|$x|j});
 
 let animation =
     (
-      (
-        name,
-        duration,
-        delay,
-        direction,
-        timingFunction,
-        fillMode,
-        playState,
-        iterationCount,
-      ),
+      name,
+      duration,
+      delay,
+      direction,
+      timingFunction,
+      fillMode,
+      playState,
+      iterationCount,
     ) =>
   p(
     "animation",
