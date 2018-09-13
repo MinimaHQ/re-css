@@ -1,12 +1,18 @@
 open Css
 
-let bounce = keyframes [
-  (0,   [ transform (`translateY `zero); ]);
-  (50,  [ transform (`translateY (`px (-20))); ]);
-  (100, [ transform (`translateY `zero); ]);
+let container = css [
+  (* label hashed classnames for readability *)
+  (* I prolly should do ppx to automate that *)
+  label "container";
+
+  display `flex;
+  flexFlow `column `nowrap;
+  alignItems `center;
 ]
 
-let container = css [
+let shape = css [
+  label "shape";
+
   display `flex;
   flexFlow `row `nowrap;
   alignItems `center;
@@ -19,20 +25,20 @@ let container = css [
   borderRadius (`px 6);
   backgroundColor (`hex "29d");
 
-  (* :hover selector *)
+  (* :hover selector, same as `select ":hover" [ ... ]` *)
   hover [
     borderRadius (`pct 50.);
     cursor `grab;
   ];
 ]
 
+(* Dynamic styling *)
 let text ~size = css [
+  label "text";
+
   color (`hex "fff");
   fontSize (`px size);
   fontWeight 700;
-  animationName bounce;
-  animationDuration (`ms 300);
-  animationIterationCount (`i 7);
 
   (* Transition takes property, duration, timing-function & delay *)
   transition "font-size" (`ms 100) `easeInOut `zero;
@@ -56,4 +62,33 @@ let text ~size = css [
       color (`hex "fff");
     ];
   ];
+]
+
+(* Define keyframes *)
+let bounce = keyframes [
+  (0,   [ transform (`translateY `zero); ]);
+  (50,  [ transform (`translateY (`px (-20))); ]);
+  (100, [ transform (`translateY `zero); ]);
+]
+
+let animated = css [
+  label "animated";
+
+  (* Use generated animation name *)
+  animationName bounce;
+  animationDuration (`ms 300);
+  animationIterationCount (`i 7);
+]
+
+(* Compose things *)
+let smallText = css [
+  label "smallText";
+
+  fontSize (`em 0.8);
+]
+
+let note = css ~extend: smallText [
+  label "note";
+
+  marginTop (`px 10);
 ]

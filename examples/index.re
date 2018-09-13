@@ -1,3 +1,3 @@
 include GlobalStyles;
 
-ReactDOMRe.renderToElementWithId(<Component />, "app");
+ReactDOMRe.renderToElementWithId(<Component size=30 animate=true />, "app");

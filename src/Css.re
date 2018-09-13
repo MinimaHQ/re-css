@@ -2226,8 +2226,10 @@ let supports = (query: string, declarations) =>
 
 /* ===== 👩‍🎤 Emotion bindings ===== */
 
-[@bs.module "emotion"] external css: Js.Dict.t(string) => string = "css";
-let css = declarations => declarations->Declarations.toDict->css;
+[@bs.module "emotion"]
+external make: (Js.nullable(string), Js.Dict.t(string)) => string = "css";
+let css = (~extend: option(string)=?, declarations) =>
+  declarations->Declarations.toDict->make(extend->Js.Nullable.fromOption, _);
 
 [@bs.module "emotion"]
 external injectGlobal: Js.Dict.t(Js.Dict.t(string)) => unit = "injectGlobal";
