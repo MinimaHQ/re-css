@@ -9,7 +9,7 @@ let make = (~size, ~animate, _) => {
       <div className=Css.shape>
         <div
           className={
-            Cx.merge([|Css.text(~size), Css.animated->Cn.ifTrue(animate)|])
+            Cn.make([Css.text(~size), Css.animated->Cn.ifTrue(animate)])
           }>
           "Hi!"->ReasonReact.string
         </div>

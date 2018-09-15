@@ -7,8 +7,10 @@
       "type" : "dev"
     }
   ],
-  "bs-dependencies": ["re-classnames"],
-  "bs-dev-dependencies": ["reason-react"],
+  "bs-dev-dependencies": [
+    "reason-react",
+    "re-classnames"
+  ],
   "reason": { "react-jsx": 2 },
   "refmt": 3,
   "bsc-flags": ["-bs-super-errors", "-open Belt"],
