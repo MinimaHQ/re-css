@@ -16,7 +16,8 @@
     "clean:dist": "rm -rf dist"
   },
   "dependencies": {
-    "emotion": "9.2.8"
+    "emotion": "9.2.8",
+    "re-classnames": "3.0.0"
   },
   "devDependencies": {
     "bs-platform": "4.0.5",
