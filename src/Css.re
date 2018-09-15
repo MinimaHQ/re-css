@@ -1,3 +1,17 @@
+/* ===== 🛠 Helpers ===== */
+
+module Helpers = {
+  let joinWith = (strings, separator) => {
+    let rec run = (strings, acc) =>
+      switch (strings) {
+      | [] => acc
+      | [x] => acc ++ x
+      | [x, ...xs] => xs->run(acc ++ x ++ separator)
+      };
+    strings->run("");
+  };
+};
+
 /* ===== 🎨 CSS Core Types ===== */
 
 module Calc = {
@@ -463,7 +477,7 @@ module Gradient = {
             {j|$color $index%|j};
           })
         )
-      ->CssHelpers.joinWith(", ");
+      ->Helpers.joinWith(", ");
   };
 
   type t = [
@@ -1905,14 +1919,14 @@ let backgroundAttachment = x =>
 let backgroundAttachments = x =>
   p(
     "backgroundAttachment",
-    x->List.map(BackgroundAttachment.toString)->CssHelpers.joinWith(", "),
+    x->List.map(BackgroundAttachment.toString)->Helpers.joinWith(", "),
   );
 let backgroundBlendMode = x =>
   p("backgroundBlendMode", x->BackgroundBlendMode.toString);
 let backgroundBlendModes = x =>
   p(
     "backgroundBlendMode",
-    x->List.map(BackgroundBlendMode.toString)->CssHelpers.joinWith(", "),
+    x->List.map(BackgroundBlendMode.toString)->Helpers.joinWith(", "),
   );
 let backgroundClip = x => p("backgroundClip", x->BackgroundBox.toString);
 let backgroundColor = x => p("backgroundColor", x->Color.toString);
@@ -1920,7 +1934,7 @@ let backgroundImage = x => p("backgroundImage", x->BackgroundImage.toString);
 let backgroundImages = x =>
   p(
     "backgroundImage",
-    x->List.map(BackgroundImage.toString)->CssHelpers.joinWith(", "),
+    x->List.map(BackgroundImage.toString)->Helpers.joinWith(", "),
   );
 let backgroundOrigin = x => p("backgroundOrigin", x->BackgroundBox.toString);
 let backgroundPosition = x =>
@@ -1933,7 +1947,7 @@ let backgroundSize = x => p("backgroundSize", x->BackgroundSize.toString);
 let backgroundSizes = x =>
   p(
     "backgroundSize",
-    x->List.map(BackgroundSize.toString)->CssHelpers.joinWith(", "),
+    x->List.map(BackgroundSize.toString)->Helpers.joinWith(", "),
   );
 
 let boxShadow =
@@ -1946,7 +1960,7 @@ let boxShadows = x =>
     ->List.mapU((. (x, y, blur, spread, color, inset)) =>
         BoxShadow.toString(~x, ~y, ~blur, ~spread, ~inset, color)
       )
-    ->CssHelpers.joinWith(", "),
+    ->Helpers.joinWith(", "),
   );
 
 let clipPath = x => p("clipPath", x->Url.toString);
@@ -1968,7 +1982,7 @@ let src = (srcs: list((FontSrc.src, option(FontSrc.format)))) =>
     "src",
     srcs
     ->List.map(((src, format)) => FontSrc.toString(~format?, src))
-    ->CssHelpers.joinWith(", "),
+    ->Helpers.joinWith(", "),
   );
 let lineHeight = x => p("lineHeight", x->LineHeight.toString);
 let letterSpacing = x => p("letterSpacing", x->LetterSpacing.toString);
@@ -1991,7 +2005,7 @@ let textShadows = xs =>
     ->List.mapU((. (x, y, blur, color)) =>
         TextShadow.toString(~x, ~y, ~blur, color)
       )
-    ->CssHelpers.joinWith(", "),
+    ->Helpers.joinWith(", "),
   );
 
 let float = x => p("float", x->Float.toString);
@@ -2051,7 +2065,7 @@ let transitions = xs =>
     ->List.map(((property, duration, timingFunction, delay)) =>
         Transition.toString(~property, ~duration, ~timingFunction, ~delay)
       )
-    ->CssHelpers.joinWith(", "),
+    ->Helpers.joinWith(", "),
   );
 
 let transitionProperty = (x: string) => p("transitionProperty", x);
@@ -2062,10 +2076,7 @@ let transitionTimingFunction = x =>
 
 let transform = x => p("transform", x->Transform.toString);
 let transforms = xs =>
-  p(
-    "transform",
-    xs->List.map(Transform.toString)->CssHelpers.joinWith(" "),
-  );
+  p("transform", xs->List.map(Transform.toString)->Helpers.joinWith(" "));
 let transformOrigin = (x, y) =>
   p("transformOrigin", LengthPercentage.toString2(x, y));
 let transformOrigin3d = (x, y, z) =>
@@ -2141,63 +2152,60 @@ let animations = xs =>
           ~iterationCount,
         )
       )
-    ->CssHelpers.joinWith(", "),
+    ->Helpers.joinWith(", "),
   );
 
 let animationDelay = x => p("animationDelay", x->Timing.toString);
 let animationDelays = x =>
-  p(
-    "animationDelay",
-    x->List.map(Timing.toString)->CssHelpers.joinWith(", "),
-  );
+  p("animationDelay", x->List.map(Timing.toString)->Helpers.joinWith(", "));
 let animationDirection = x =>
   p("animationDirection", x->AnimationDirection.toString);
 let animationDirections = x =>
   p(
     "animationDirection",
-    x->List.map(AnimationDirection.toString)->CssHelpers.joinWith(", "),
+    x->List.map(AnimationDirection.toString)->Helpers.joinWith(", "),
   );
 let animationDuration = x => p("animationDuration", x->Timing.toString);
 let animationDurations = x =>
   p(
     "animationDuration",
-    x->List.map(Timing.toString)->CssHelpers.joinWith(", "),
+    x->List.map(Timing.toString)->Helpers.joinWith(", "),
   );
 let animationFillMode = x =>
   p("animationFillMode", x->AnimationFillMode.toString);
 let animationFillModes = x =>
   p(
     "animationFillMode",
-    x->List.map(AnimationFillMode.toString)->CssHelpers.joinWith(", "),
+    x->List.map(AnimationFillMode.toString)->Helpers.joinWith(", "),
   );
 let animationIterationCount = x =>
   p("animationIterationCount", x->AnimationIterationCount.toString);
 let animationIterationCounts = x =>
   p(
     "animationIterationCount",
-    x->List.map(AnimationIterationCount.toString)->CssHelpers.joinWith(", "),
+    x->List.map(AnimationIterationCount.toString)->Helpers.joinWith(", "),
   );
 let animationName = (x: string) => p("animationName", x);
 let animationNames = (x: list(string)) =>
-  p("animationName", x->CssHelpers.joinWith(", "));
+  p("animationName", x->Helpers.joinWith(", "));
 let animationPlayState = x =>
   p("animationPlayState", x->AnimationPlayState.toString);
 let animationPlayStates = x =>
   p(
     "animationPlayState",
-    x->List.map(AnimationPlayState.toString)->CssHelpers.joinWith(", "),
+    x->List.map(AnimationPlayState.toString)->Helpers.joinWith(", "),
   );
 let animationTimingFunction = x =>
   p("animationTimingFunction", x->TimingFunction.toString);
 let animationTimingFunctions = x =>
   p(
     "animationTimingFunction",
-    x->List.map(TimingFunction.toString)->CssHelpers.joinWith(", "),
+    x->List.map(TimingFunction.toString)->Helpers.joinWith(", "),
   );
 
 let filter = x => p("filter", x->Filter.toString);
 let filters = x =>
-  p("filter", x->List.map(Filter.toString)->CssHelpers.joinWith(" "));
+  p("filter", x->List.map(Filter.toString)->Helpers.joinWith(" "));
 
 let appearance = x => p("appearance", x->Appearance.toString);
 
@@ -2221,7 +2229,7 @@ let zIndex = (x: int) => p("z-index", {j|$x|j});
 
 let unsafe = p;
 
-/* ===== 🔖 CSS Selectors ===== */
+/* ===== 🥢 CSS Selectors ===== */
 
 let select = (selector, declarations) =>
   [(selector, declarations->Declarations.toDict)]->Selector.box;
@@ -2269,7 +2277,15 @@ let nthOfType = (selector: string, declarations) =>
 let nthLastOfType = (selector: string, declarations) =>
   select({j|:nth-last-of-type($selector)|j}, declarations);
 
-/* ===== 🗂 CSS Values ===== */
+/* ===== 📋 CSS @-rules ===== */
+
+let media = (query: string, declarations) =>
+  select({j|@media $query|j}, declarations);
+
+let supports = (query: string, declarations) =>
+  select({j|@supports $query|j}, declarations);
+
+/* ===== 🔖 CSS Values ===== */
 
 let auto = `auto;
 let zero = `zero;
@@ -2432,14 +2448,6 @@ let selfStart = `selfStart;
 let selfEnd = `selfEnd;
 let spaceAround = `spaceAround;
 let spaceBetween = `spaceBetween;
-
-/* ===== 🗂 @-rules ===== */
-
-let media = (query: string, declarations) =>
-  select({j|@media $query|j}, declarations);
-
-let supports = (query: string, declarations) =>
-  select({j|@supports $query|j}, declarations);
 
 /* ===== 👩‍🎤 Emotion bindings ===== */
 
