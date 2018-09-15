@@ -2269,6 +2269,170 @@ let nthOfType = (selector: string, declarations) =>
 let nthLastOfType = (selector: string, declarations) =>
   select({j|:nth-last-of-type($selector)|j}, declarations);
 
+/* ===== 🗂 CSS Values ===== */
+
+let auto = `auto;
+let zero = `zero;
+let none = `none;
+
+let em = (x: float) => `em(x);
+let ex = (x: float) => `ex(x);
+let ch = (x: float) => `ch(x);
+let rem = (x: float) => `rem(x);
+let vw = (x: float) => `vw(x);
+let vh = (x: float) => `vh(x);
+let vmin = (x: float) => `vmin(x);
+let vmax = (x: float) => `vmax(x);
+let cm = (x: float) => `cm(x);
+let mm = (x: float) => `mm(x);
+let q = (x: float) => `q(x);
+let inch = (x: float) => `inch(x);
+let pc = (x: float) => `pc(x);
+let pt = (x: float) => `pt(x);
+let px = (x: int) => `px(x);
+let pct = (x: float) => `pct(x);
+let num = (x: float) => `num(x);
+
+let deg = (x: float) => `deg(x);
+let rad = (x: float) => `rad(x);
+let grad = (x: float) => `grad(x);
+let turn = (x: float) => `turn(x);
+
+let rgb = (r: int, g: int, b: int) => `rgb((r, g, b));
+let rgba = (r: int, g: int, b: int, a: float) => `rgba((r, g, b, a));
+let hsl = (h: int, s: int, l: int) => `hsl((h, s, l));
+let hsla = (h: int, s: int, l: int, a: float) => `hsla((h, s, l, a));
+let hex = (x: string) => `hex(x);
+let transparent = `transparent;
+let currentColor = `currentColor;
+
+let linearGradient = (a: Angle.t, s: Gradient.Stops.t) =>
+  `linearGradient((a, s));
+let repeatingLinearGradient = (a: Angle.t, s: Gradient.Stops.t) =>
+  `repeatingLinearGradient((a, s));
+let radialGradient = (s: Gradient.Stops.t) => `radialGradient(s);
+let repeatingRadialGradient = (s: Gradient.Stops.t) =>
+  `repeatingRadialGradient(s);
+
+let inline = `inline;
+let listItem = `listItem;
+let block = `block;
+let inlineBlock = `inlineBlock;
+let flexBox = `flex;
+let inlineFlex = `inlineFlex;
+let grid = `grid;
+let inlineGrid = `inlineGrid;
+let table = `table;
+let inlineTable = `inlineTable;
+let tableRowGroup = `tableRowGroup;
+let tableHeaderGroup = `tableHeaderGroup;
+let tableFooterGroup = `tableFooterGroup;
+let tableRow = `tableRow;
+let tableColumnGroup = `tableColumnGroup;
+let tableColumn = `tableColumn;
+let tableCell = `tableCell;
+let tableCaption = `tableCaption;
+
+let absolute = `absolute;
+let static = `static;
+let fixed = `fixed;
+let relative = `relative;
+let sticky = `sticky;
+
+let hidden = `hidden;
+let dotted = `dotted;
+let dashed = `dashed;
+let solid = `solid;
+let double = `double;
+let groove = `groove;
+let ridge = `ridge;
+let inset = `inset;
+let outset = `outset;
+
+let thin = `thin;
+let medium = `medium;
+let thick = `thick;
+
+let s = (x: float) => `s(x);
+let ms = (x: int) => `ms(x);
+
+let linear = `linear;
+let ease = `ease;
+let easeIn = `easeIn;
+let easeOut = `easeOut;
+let easeInOut = `easeInOut;
+let stepStart = `stepStart;
+let stepEnd = `stepEnd;
+let steps = (i: int, se: [ | `start | `end_]) => `steps((i, se));
+let cubicBezier = (a: float, b: float, c: float, d: float) =>
+  `cubicBezier((a, b, c, d));
+
+let translate = (x: LengthPercentage.t, y: LengthPercentage.t) =>
+  `translate((x, y));
+let translate3d =
+    (x: LengthPercentage.t, y: LengthPercentage.t, z: LengthPercentage.t) =>
+  `translate3d((x, y, z));
+let translateX = (x: LengthPercentage.t) => `translateX(x);
+let translateY = (y: LengthPercentage.t) => `translateY(y);
+let translateZ = (z: LengthPercentage.t) => `translateZ(z);
+let scale = (x: float) => `scale(x);
+let scaleXY = (x: float, y: float) => `scaleXY((x, y));
+let scaleX = (x: float) => `scaleX(x);
+let scaleY = (y: float) => `scaleY(y);
+let scaleZ = (z: float) => `scaleZ(z);
+let scale3d = (x: float, y: float, z: float) => `scale3d((x, y, z));
+let rotate = (a: Angle.t) => `rotate(a);
+let rotate3d = (x: float, y: float, z: float, a: Angle.t) =>
+  `rotate3d((x, y, z, a));
+let rotateX = (x: float) => `rotateX(x);
+let rotateY = (z: float) => `rotateY(z);
+let rotateZ = (z: float) => `rotateZ(z);
+let skew = (x: Angle.t, y: Angle.t) => `skew((x, y));
+let skewX = (x: Angle.t) => `skewX(x);
+let skewY = (y: Angle.t) => `skewY(y);
+let matrix = (a: float, b: float, c: float, d: float, e: float, f: float) =>
+  `matrix((a, b, c, d, e, f));
+let matrix3d =
+    (
+      a: float,
+      b: float,
+      c: float,
+      d: float,
+      e: float,
+      f: float,
+      g: float,
+      h: float,
+      i: float,
+      j: float,
+      k: float,
+      l: float,
+      m: float,
+      n: float,
+      o: float,
+      p: float,
+    ) =>
+  `matrix3d((a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p));
+
+let row = `row;
+let column = `column;
+let rowReverse = `rowReverse;
+let columnReverse = `columnReverse;
+
+let nowrap = `nowrap;
+let wrap = `wrap;
+let wrapReverse = `wrapReverse;
+
+let normal = `normal;
+let flexStart = `flexStart;
+let flexEnd = `flexEnd;
+let center = `center;
+let baseline = `baseline;
+let stretch = `stretch;
+let selfStart = `selfStart;
+let selfEnd = `selfEnd;
+let spaceAround = `spaceAround;
+let spaceBetween = `spaceBetween;
+
 /* ===== 🗂 @-rules ===== */
 
 let media = (query: string, declarations) =>
