@@ -1,19 +1,26 @@
 /* ===== 🎨 CSS Core Types ===== */
 
 module Calc = {
-  type t = [ | `add | `sub | `mult | `div];
+  type op = [ | `add | `sub | `mult | `div];
+  type num = [ | `num(float)];
+  type t('a) = [ | `calc(op, 'a, 'a)];
 
   let (+) = (a, b) => `calc((`add, a, b));
   let (-) = (a, b) => `calc((`sub, a, b));
   let ( * ) = (a, b) => `calc((`mult, a, b));
   let (/) = (a, b) => `calc((`div, a, b));
 
-  let toString = (x: t) =>
+  let opToString = (x: op) =>
     switch (x) {
     | `add => "+"
     | `sub => "-"
     | `mult => "*"
     | `div => "/"
+    };
+
+  let numToString = (x: num) =>
+    switch (x) {
+    | `num(x) => {j|$x|j}
     };
 };
 
@@ -59,15 +66,29 @@ module LengthUnit = {
 };
 
 module Length = {
-  type t = [ LengthUnit.t | `calc(Calc.t, t, t)];
+  type t = [
+    LengthUnit.t
+    | Calc.t([ LengthUnit.t | Calc.num | Calc.t('a)] as 'a)
+  ];
 
-  let rec toString = (x: t) =>
+  let rec operandToString = x =>
+    switch (x) {
+    | #LengthUnit.t as x => x->LengthUnit.toString
+    | #Calc.num as x => x->Calc.numToString
+    | `calc(op, a, b) =>
+      let op = op->Calc.opToString;
+      let a = a->operandToString;
+      let b = b->operandToString;
+      {j|calc($a $op $b)|j};
+    };
+
+  let toString = (x: t) =>
     switch (x) {
     | #LengthUnit.t as x => x->LengthUnit.toString
     | `calc(op, a, b) =>
-      let op = op->Calc.toString;
-      let a = a->toString;
-      let b = b->toString;
+      let op = op->Calc.opToString;
+      let a = a->operandToString;
+      let b = b->operandToString;
       {j|calc($a $op $b)|j};
     };
 
@@ -88,30 +109,62 @@ module PercentageUnit = {
 };
 
 module Percentage = {
-  type t = [ PercentageUnit.t | `calc(Calc.t, t, t)];
+  type t = [
+    PercentageUnit.t
+    | Calc.t([ PercentageUnit.t | Calc.num | Calc.t('a)] as 'a)
+  ];
 
-  let rec toString = (x: t) =>
+  let rec operandToString = x =>
+    switch (x) {
+    | #PercentageUnit.t as x => x->PercentageUnit.toString
+    | #Calc.num as x => x->Calc.numToString
+    | `calc(op, a, b) =>
+      let op = op->Calc.opToString;
+      let a = a->operandToString;
+      let b = b->operandToString;
+      {j|calc($a $op $b)|j};
+    };
+
+  let toString = (x: t) =>
     switch (x) {
     | #PercentageUnit.t as x => x->PercentageUnit.toString
     | `calc(op, a, b) =>
-      let op = op->Calc.toString;
-      let a = a->toString;
-      let b = b->toString;
+      let op = op->Calc.opToString;
+      let a = a->operandToString;
+      let b = b->operandToString;
       {j|calc($a $op $b)|j};
     };
 };
 
 module LengthPercentage = {
-  type t = [ LengthUnit.t | PercentageUnit.t | `calc(Calc.t, t, t)];
+  type t = [
+    LengthUnit.t
+    | PercentageUnit.t
+    | Calc.t(
+        [ LengthUnit.t | PercentageUnit.t | Calc.num | Calc.t('a)] as 'a,
+      )
+  ];
 
-  let rec toString = (x: t) =>
+  let rec operandToString = x =>
+    switch (x) {
+    | #LengthUnit.t as x => x->LengthUnit.toString
+    | #PercentageUnit.t as x => x->PercentageUnit.toString
+    | #Calc.num as x => x->Calc.numToString
+    | `calc(op, a, b) =>
+      let op = op->Calc.opToString;
+      let a = a->operandToString;
+      let b = b->operandToString;
+      {j|calc($a $op $b)|j};
+    };
+
+  let toString = (x: t) =>
     switch (x) {
     | #LengthUnit.t as x => x->LengthUnit.toString
     | #PercentageUnit.t as x => x->PercentageUnit.toString
     | `calc(op, a, b) =>
-      let op = op->Calc.toString;
-      let a = a->toString;
-      let b = b->toString;
+      let op = op->Calc.opToString;
+      let a = a->operandToString;
+      let b = b->operandToString;
       {j|calc($a $op $b)|j};
     };
 
@@ -179,14 +232,14 @@ module LengthPercentageNone = {
 };
 
 module NumberPercentage = {
-  type t = [ PercentageUnit.t | `num(float) | `calc(Calc.t, t, t)];
+  type t = [ PercentageUnit.t | Calc.num | Calc.t('a)] as 'a;
 
   let rec toString = (x: t) =>
     switch (x) {
     | #PercentageUnit.t as x => x->PercentageUnit.toString
-    | `num(x) => {j|$x|j}
+    | #Calc.num as x => x->Calc.numToString
     | `calc(op, a, b) =>
-      let op = op->Calc.toString;
+      let op = op->Calc.opToString;
       let a = a->toString;
       let b = b->toString;
       {j|calc($a $op $b)|j};
