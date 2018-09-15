@@ -181,7 +181,7 @@ let button = css [
 ]
 ```
 
-To make this css work you can use `Cn.make` or rewrite css using functions (for now, I prefer the former):
+To make this css work you can use `Cn.make` or re-shuffle classes/selectors or rewrite css using functions (for now, I prefer the former):
 
 ```reason
 <div className={Cn.make([Css.foo, Css.bar])} />
