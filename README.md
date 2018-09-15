@@ -141,21 +141,23 @@ let make = _ => {
 };
 ```
 
-#### Cn
-This package exposes `Cn` module from [`re-classnames`](https://github.com/alexfedoseev/re-classnames). You can use it to combine classnames together. See `re-classnames` docs for details.
+### Composing classnames
 
 #### Cx
-`Cx.merge` is a binding to [Emotion's `cx`](https://emotion.sh/docs/cx) function. See the next section.
+This package provides `Cx.merge` function which is a binding to Emotion's [`cx`](https://emotion.sh/docs/cx). It merges 2 Emotion's CSS classes into single unique class. See the [Caveats](#caveats) section for details.
+
+#### Cn
+Also, there is [`re-classnames`](https://github.com/alexfedoseev/re-classnames). You can use it to combine classnames together. It's not aware of Emotion and simply operates on strings.
 
 #### Caveats
 First, what is the difference between `Cn.make` and `Cx.merge`:
 
 ```reason
 Cn.make([Css.one, Css.two]) /* => "css-<HASH>-one css-<HASH>-two" */
-Cx.merge([Css.one, Css.two]) /* => "css-<HASH>-one-two" */
+Cx.merge([|Css.one, Css.two|]) /* => "css-<HASH>-one-two" */
 ```
 
-If the former simply concatenates two classnames in single string (and as a result 2 css classes are applied) but the latter merges 2 Emotion classes into single unique classname and applies it to a node.
+If the former simply concatenates two classname strings into a single string (and as a result 2 CSS classes are applied) then the latter merges 2 Emotion classes into single unique class and applies it to a node (as a result 1 unique CSS class is applied).
 
 Caveat:
 
@@ -174,14 +176,14 @@ let button = css [
 
   select {j|.$foo:hover &|j} [
     (*
-      It won't work due to `.foo` class is being merged
-      w/ `.bar` into single unique classname inside component
+      It won't work due to `.foo` class is being merged w/ `.bar`
+      into single unique classname inside component
     *)
   ]
 ]
 ```
 
-To make this css work you can use `Cn.make` or re-shuffle classes/selectors or rewrite css using functions (for now, I prefer the former):
+To make this css work you can use `Cn.make` or re-shuffle classes/selectors or rewrite css classes using functions. For now, I prefer using `Cn.make` b/c thus I don't have to track down in CSS if I can use specific classname in selectors or it was mangled in JSX and thus is not available for referencing:
 
 ```reason
 <div className={Cn.make([Css.foo, Css.bar])} />
