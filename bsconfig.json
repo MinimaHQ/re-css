@@ -1,0 +1,23 @@
+{
+  "name": "re-css",
+  "sources": [
+    "src",
+    {
+      "dir": "examples",
+      "type" : "dev"
+    }
+  ],
+  "bs-dependencies": ["re-classnames"],
+  "bs-dev-dependencies": ["reason-react"],
+  "reason": { "react-jsx": 2 },
+  "refmt": 3,
+  "bsc-flags": ["-bs-super-errors", "-open Belt"],
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "warnings": {
+    "number": "-44"
+  }
+}
