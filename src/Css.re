@@ -1795,7 +1795,271 @@ module Flex = {
   };
 };
 
-/* TODO: Grid */
+module Grid = {
+  module Flex = {
+    type t = [ | `fr(float)];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `fr(x) => {j|$(x)fr|j}
+      };
+  };
+
+  module MinMax = {
+    type t = [ | `minmax(value, value)]
+    and value = [
+      LengthPercentage.t
+      | Flex.t
+      | `minContent
+      | `maxContent
+      | `auto
+    ];
+
+    let valueToString = (x: value) =>
+      switch (x) {
+      | #LengthPercentage.t as x => x->LengthPercentage.toString
+      | #Flex.t as x => x->Flex.toString
+      | `minContent => "min-content"
+      | `maxContent => "max-content"
+      | `auto => "auto"
+      };
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `minmax(min, max) =>
+        let min = min->valueToString;
+        let max = max->valueToString;
+        {j|minmax($min, $max)|j};
+      };
+  };
+
+  module FitContent = {
+    type t = [ | `fitContent(LengthPercentage.t)];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `fitContent(x) =>
+        let x = x->LengthPercentage.toString;
+        {j|fit-content($x)|j};
+      };
+  };
+
+  module Repeat = {
+    type t = [ | `repeat(value, list(trackList))]
+    and value = [ | `n(int) | `autoFill | `autoFit]
+    and trackList = [
+      LengthPercentage.t
+      | Flex.t
+      | `minContent
+      | `maxContent
+      | `auto
+    ];
+
+    let valueToString = (x: value) =>
+      switch (x) {
+      | `n(x) => {j|$x|j}
+      | `autoFill => "auto-fill"
+      | `autoFit => "auto-fit"
+      };
+    let trackListToString = (x: trackList) =>
+      switch (x) {
+      | #LengthPercentage.t as x => x->LengthPercentage.toString
+      | #Flex.t as x => x->Flex.toString
+      | `minContent => "min-content"
+      | `maxContent => "max-content"
+      | `auto => "auto"
+      };
+    let toString = (x: t) =>
+      switch (x) {
+      | `repeat(value, trackList) =>
+        let value = value->valueToString;
+        let trackList =
+          trackList->List.map(trackListToString)->Helpers.joinWith(" ");
+        {j|repeat($(value), $(trackList))|j};
+      };
+  };
+
+  module AutoRows = {
+    type t = [
+      LengthPercentage.t
+      | Flex.t
+      | MinMax.t
+      | `minContent
+      | `maxContent
+      | `auto
+    ];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | #LengthPercentage.t as x => x->LengthPercentage.toString
+      | #Flex.t as x => x->Flex.toString
+      | #MinMax.t as x => x->MinMax.toString
+      | `minContent => "min-content"
+      | `maxContent => "max-content"
+      | `auto => "auto"
+      };
+  };
+
+  module AutoColumns = {
+    type t = [
+      LengthPercentage.t
+      | Flex.t
+      | FitContent.t
+      | MinMax.t
+      | `minContent
+      | `maxContent
+      | `auto
+    ];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | #LengthPercentage.t as x => x->LengthPercentage.toString
+      | #Flex.t as x => x->Flex.toString
+      | #FitContent.t as x => x->FitContent.toString
+      | #MinMax.t as x => x->MinMax.toString
+      | `minContent => "min-content"
+      | `maxContent => "max-content"
+      | `auto => "auto"
+      };
+  };
+
+  module Template = {
+    type t = [ | `one(value) | `many(list(value)) | `none]
+    and value = [
+      LengthPercentage.t
+      | Flex.t
+      | MinMax.t
+      | FitContent.t
+      | Repeat.t
+      | `minContent
+      | `maxContent
+      | `auto
+    ];
+
+    let valueToString = (x: value) =>
+      switch (x) {
+      | #LengthPercentage.t as x => x->LengthPercentage.toString
+      | #Flex.t as x => x->Flex.toString
+      | #MinMax.t as x => x->MinMax.toString
+      | #FitContent.t as x => x->FitContent.toString
+      | #Repeat.t as x => x->Repeat.toString
+      | `minContent => "min-content"
+      | `maxContent => "max-content"
+      | `auto => "auto"
+      };
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `one(x) =>
+        let x = x->valueToString;
+        {j|$x|j};
+      | `many(xs) =>
+        let xs = xs->List.map(valueToString)->Helpers.joinWith(" ");
+        {j|$xs|j};
+      | `none => "none"
+      };
+  };
+
+  module Line = {
+    type t = [
+      | `auto
+      | `n(int)
+      | `ident(string)
+      | `nIdent(int, string)
+      | `span([ | `n(int) | `ident(string) | `nIdent(int, string)])
+    ];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `auto => "auto"
+      | `n(x) => {j|$x|j}
+      | `ident(x) => x
+      | `nIdent(n, ident) => {j|$n $ident|j}
+      | `span(`n(x)) => {j|span $x|j}
+      | `span(`ident(x)) => {j|span $x|j}
+      | `span(`nIdent(n, ident)) => {j|span $n $ident|j}
+      };
+  };
+
+  module Gap = {
+    type t = [ LengthPercentage.t | `normal];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | #LengthPercentage.t as x => x->LengthPercentage.toString
+      | `normal => "normal"
+      };
+  };
+
+  module BlockAlignment = {
+    type t = [
+      | `auto
+      | `normal
+      | `gridStart
+      | `gridEnd
+      | `center
+      | `stretch
+      | `baseline
+      | `firstBaseline
+      | `lastBaseline
+    ];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `auto => "auto"
+      | `normal => "normal"
+      | `gridStart => "start"
+      | `gridEnd => "end"
+      | `center => "center"
+      | `stretch => "stretch"
+      | `baseline => "baseline"
+      | `firstBaseline => "first baseline"
+      | `lastBaseline => "last baseline"
+      };
+  };
+
+  module TrackAlignment = {
+    type t = [
+      | `normal
+      | `gridStart
+      | `gridEnd
+      | `center
+      | `stretch
+      | `spaceAround
+      | `spaceBetween
+      | `spaceEvenly
+      | `baseline
+      | `firstBaseline
+      | `lastBaseline
+    ];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `normal => "normal"
+      | `gridStart => "start"
+      | `gridEnd => "end"
+      | `center => "center"
+      | `stretch => "stretch"
+      | `spaceAround => "space-around"
+      | `spaceBetween => "space-between"
+      | `spaceEvenly => "space-evenly"
+      | `baseline => "baseline"
+      | `firstBaseline => "first baseline"
+      | `lastBaseline => "last baseline"
+      };
+  };
+
+  module TemplateAreas = {
+    type t = [ | `areas(list(string)) | `none];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `areas(xs) => xs->List.map(x => {j|"$x"|j})->Helpers.joinWith("\n")
+      | `none => "none"
+      };
+  };
+};
+
 /* TODO: Globals: inherit, initial, unset */
 
 /* ===== ⚙️ API Implementation ===== */
@@ -2226,7 +2490,42 @@ let justifyItems = x => p("justifyItems", x->Flex.Justify.toString);
 let justifyContent = x => p("justifyContent", x->Flex.Justify.toString);
 let order = (x: int) => p("order", {j|$x|j});
 
-let zIndex = (x: int) => p("z-index", {j|$x|j});
+let gridTemplateRows = x => p("gridTemplateRows", x->Grid.Template.toString);
+let gridTemplateColumns = x =>
+  p("gridTemplateColumns", x->Grid.Template.toString);
+
+let gridAutoRows = x => p("gridAutoRows", x->Grid.AutoRows.toString);
+let gridAutoColumns = x => p("gridAutoColumns", x->Grid.AutoColumns.toString);
+
+let gridRowStart = x => p("gridRowStart", x->Grid.Line.toString);
+let gridRowEnd = x => p("gridRowEnd", x->Grid.Line.toString);
+let gridColumnStart = x => {
+  Js.log(p("gridColumnStart", x->Grid.Line.toString));
+  p("gridColumnStart", x->Grid.Line.toString);
+};
+let gridColumnEnd = x => p("gridColumnEnd", x->Grid.Line.toString);
+
+let gridGap = x => p("gridGap", x->LengthPercentage.toString);
+let gridGaps = (x, y) => p("gridGap", LengthPercentage.toString2(x, y));
+let gridRowGap = x => p("gridRowGap", x->Grid.Gap.toString);
+let gridColumnGap = x => p("gridColumnGap", x->Grid.Gap.toString);
+
+let alignGridItems = x => p("alignItems", x->Grid.BlockAlignment.toString);
+let alignGridSelf = x => p("alignSelf", x->Grid.BlockAlignment.toString);
+let justifyGridItems = x =>
+  p("justifyItems", x->Grid.BlockAlignment.toString);
+let justifyGridSelf = x => p("justifySelf", x->Grid.BlockAlignment.toString);
+
+let alignGridContent = x =>
+  p("alignContent", x->Grid.TrackAlignment.toString);
+let justifyGridContent = x =>
+  p("justifyContent", x->Grid.TrackAlignment.toString);
+
+let gridArea = (x: string) => p("gridArea", x);
+let gridTemplateAreas = x =>
+  p("gridTemplateAreas", x->Grid.TemplateAreas.toString);
+
+let zIndex = (x: int) => p("zIndex", {j|$x|j});
 
 let content = (x: string) => p("content", {j|"$x"|j});
 

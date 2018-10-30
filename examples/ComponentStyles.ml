@@ -90,5 +90,24 @@ let smallText = css [
 let note = css ~extend: smallText [
   label "note";
 
-  marginTop (`px 10);
+  margin2 (`px 20) `zero;
+]
+
+(* Grid *)
+let grid = css [
+  display `grid;
+  gridTemplateColumns (`one (`repeat (`n 3, [`px 100;])));
+  gridAutoRows (`px 100);
+  gridGap (`px 10);
+  gridTemplateAreas (`areas ["a a a"; ". . ."; ". . .";]);
+]
+
+let gridItem = css [
+  padding (`px 10);
+  color (`hex "fff");
+  backgroundColor (`hex "29d");
+]
+
+let gridItem1 = css [
+  gridArea "a";
 ]

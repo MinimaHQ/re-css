@@ -17,5 +17,17 @@ let make = (~size, ~animate, _) => {
       <div className=Css.note>
         {j|↑ Hover it ↑|j}->ReasonReact.string
       </div>
+      <h2> "Grid"->ReasonReact.string </h2>
+      <div className=Css.grid>
+        <div className={Cn.make([Css.gridItem, Css.gridItem1])}>
+          "1"->ReasonReact.string
+        </div>
+        <div className=Css.gridItem> "2"->ReasonReact.string </div>
+        <div className=Css.gridItem> "3"->ReasonReact.string </div>
+        <div className=Css.gridItem> "4"->ReasonReact.string </div>
+        <div className=Css.gridItem> "5"->ReasonReact.string </div>
+        <div className=Css.gridItem> "6"->ReasonReact.string </div>
+        <div className=Css.gridItem> "7"->ReasonReact.string </div>
+      </div>
     </div>,
 };
