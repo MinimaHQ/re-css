@@ -2078,6 +2078,18 @@ module Core = {
         | `none => "none"
         };
     };
+
+    module AutoFlow = {
+      type t = [ | `row | `column | `rowDense | `columnDense];
+
+      let toString = (x: t) =>
+        switch (x) {
+        | `row => "row"
+        | `column => "column"
+        | `rowDense => "row dense"
+        | `columnDense => "column dense"
+        };
+    };
   };
 
   /* TODO: Globals: inherit, initial, unset */
@@ -2551,6 +2563,8 @@ let justifyGridContent = x =>
 let gridArea = (x: string) => p("gridArea", x);
 let gridTemplateAreas = x =>
   p("gridTemplateAreas", x->Grid.TemplateAreas.toString);
+
+let gridAutoFlow = x => p("gridAutoFlow", x->Grid.AutoFlow.toString);
 
 let zIndex = (x: int) => p("zIndex", {j|$x|j});
 
