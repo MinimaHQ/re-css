@@ -16,7 +16,7 @@ module Helpers = {
 
 module Calc = {
   type op = [ | `add | `sub | `mult | `div];
-  type num = [ | `num(float)];
+  type num = [ | `i(int) | `f(float)];
   type t('a) = [ | `calc(op, 'a, 'a)];
 
   let (+) = (a, b) => `calc((`add, a, b));
@@ -34,7 +34,8 @@ module Calc = {
 
   let numToString = (x: num) =>
     switch (x) {
-    | `num(x) => {j|$x|j}
+    | `i(x) => {j|$x|j}
+    | `f(x) => {j|$x|j}
     };
 };
 
@@ -2309,7 +2310,8 @@ let pc = (x: float) => `pc(x);
 let pt = (x: float) => `pt(x);
 let px = (x: int) => `px(x);
 let pct = (x: float) => `pct(x);
-let num = (x: float) => `num(x);
+let i = (x: int) => `i(x);
+let f = (x: float) => `f(x);
 
 let deg = (x: float) => `deg(x);
 let rad = (x: float) => `rad(x);
