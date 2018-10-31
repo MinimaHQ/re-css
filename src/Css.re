@@ -2652,6 +2652,8 @@ let pc = (x: float) => `pc(x);
 let pt = (x: float) => `pt(x);
 let px = (x: int) => `px(x);
 let pct = (x: float) => `pct(x);
+let fr = (x: float) => `fr(x);
+let n = (x: int) => `n(x);
 let i = (x: int) => `i(x);
 let f = (x: float) => `f(x);
 
@@ -2794,6 +2796,30 @@ let selfStart = `selfStart;
 let selfEnd = `selfEnd;
 let spaceAround = `spaceAround;
 let spaceBetween = `spaceBetween;
+
+let minmax = (min: Grid.MinMax.min, max: Grid.MinMax.max) =>
+  `minmax((min, max));
+let minContent = `minContent;
+let maxContent = `maxContent;
+let fitContent = (x: LengthPercentage.t) => `fitContent(x);
+let repeat =
+    (value: Grid.Repeat.value, trackList: list(Grid.Repeat.trackList)) =>
+  `repeat((value, trackList));
+let autoFill = `autoFill;
+let autoFit = `autoFit;
+let one = (x: Grid.Template.value) => `one(x);
+let many = (xs: list(Grid.Template.value)) => `many(xs);
+let ident = (x: string) => `ident(x);
+let nIdent = (n: int, ident: string) => `nIdent((n, ident));
+let span = x => `span(x);
+let gridStart = `gridStart;
+let gridEnd = `gridEnd;
+let firstBaseline = `firstBaseline;
+let lastBaseline = `lastBaseline;
+let spaceEvenly = `spaceEvenly;
+let areas = (xs: list(string)) => `areas(xs);
+let rowDense = `rowDense;
+let columnDense = `columnDense;
 
 /* ===== 👩‍🎤 Emotion bindings ===== */
 
