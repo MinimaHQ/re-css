@@ -2521,12 +2521,12 @@ let flexDirection = x => p("flexDirection", x->Flex.Direction.toString);
 let flexWrap = x => p("flexWrap", x->Flex.Wrap.toString);
 let flexFlow = (direction, wrap) =>
   p("flex-flow", Flex.Flow.toString(direction, wrap));
-let alignSelf = x => p("alignSelf", x->Flex.Align.toString);
-let alignItems = x => p("alignItems", x->Flex.Align.toString);
-let alignContent = x => p("alignContent", x->Flex.Align.toString);
-let justifySelf = x => p("justifySelf", x->Flex.Justify.toString);
-let justifyItems = x => p("justifyItems", x->Flex.Justify.toString);
-let justifyContent = x => p("justifyContent", x->Flex.Justify.toString);
+let alignFlexSelf = x => p("alignSelf", x->Flex.Align.toString);
+let alignFlexItems = x => p("alignItems", x->Flex.Align.toString);
+let alignFlexContent = x => p("alignContent", x->Flex.Align.toString);
+let justifyFlexSelf = x => p("justifySelf", x->Flex.Justify.toString);
+let justifyFlexItems = x => p("justifyItems", x->Flex.Justify.toString);
+let justifyFlexContent = x => p("justifyContent", x->Flex.Justify.toString);
 let order = (x: int) => p("order", {j|$x|j});
 
 let gridTemplateRows = x => p("gridTemplateRows", x->Grid.Template.toString);
