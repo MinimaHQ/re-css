@@ -2101,22 +2101,24 @@ module Core = {
   module Declaration = {
     type t('a) = list((string, 'a));
 
-    external box: t(_) => declaration = "%identity";
-    external unbox: declaration => t(_) = "%identity";
+    external pack: t(_) => declaration = "%identity";
+    external unpack: declaration => t(_) = "%identity";
   };
 
   module Declarations = {
-    external box: list(Declaration.t(_)) => list(declaration) = "%identity";
-    external unbox: list(declaration) => list(Declaration.t(_)) =
+    external pack: list(Declaration.t(_)) => list(declaration) =
+      "%identity";
+    external unpack: list(declaration) => list(Declaration.t(_)) =
       "%identity";
 
     let toDict: list(declaration) => Js.Dict.t(_) =
-      declarations => declarations->unbox->List.flatten->Js.Dict.fromList;
+      declarations => declarations->unpack->List.flatten->Js.Dict.fromList;
   };
 
   module Selector = {
-    external box: list((string, Js.Dict.t(_))) => declaration = "%identity";
-    external unbox: declaration => list((string, Js.Dict.t(_))) =
+    external pack: list((string, Js.Dict.t(_))) => declaration =
+      "%identity";
+    external unpack: declaration => list((string, Js.Dict.t(_))) =
       "%identity";
   };
 };
@@ -2127,7 +2129,7 @@ module Calc = Core.Calc;
 
 open Core;
 
-let p = (prop, value) => [(prop, value)]->Declaration.box;
+let p = (prop, value) => [(prop, value)]->Declaration.pack;
 
 let label = (x: string) => p("label", x);
 
@@ -2575,7 +2577,7 @@ let unsafe = p;
 /* ===== 🥢 CSS Selectors ===== */
 
 let select = (selector, declarations) =>
-  [(selector, declarations->Declarations.toDict)]->Selector.box;
+  [(selector, declarations->Declarations.toDict)]->Selector.pack;
 
 let active = select(":active");
 let after = select("::after");
