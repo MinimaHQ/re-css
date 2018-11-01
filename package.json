@@ -6,7 +6,8 @@
   "license": "MIT",
   "main": "src/Css.re",
   "scripts": {
-    "build": "bsb -clean-world -make-world"
+    "build": "bsb -clean-world -make-world",
+    "test": "exit 0"
   },
   "files": [
     "src",
