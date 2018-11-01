@@ -1,4 +1,4 @@
-open Css
+open Emotion
 
 let container = css [
   (* label hashed classnames for readability *)
