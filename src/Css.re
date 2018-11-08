@@ -1937,7 +1937,7 @@ module Grid = {
   };
 
   module Template = {
-    type t = [ | `one(value) | `many(list(value)) | `none]
+    type t = [ | `list(list(value)) | `none]
     and value = [
       LengthPercentage.t
       | Flex.t
@@ -1963,10 +1963,7 @@ module Grid = {
 
     let toString = (x: t) =>
       switch (x) {
-      | `one(x) =>
-        let x = x->valueToString;
-        {j|$x|j};
-      | `many(xs) =>
+      | `list(xs) =>
         let xs = xs->List.map(valueToString)->Helpers.joinWith(" ");
         {j|$xs|j};
       | `none => "none"
