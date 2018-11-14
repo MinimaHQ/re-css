@@ -18,7 +18,7 @@ module Helpers = {
 
 module Calc = {
   type op = [ | `add | `sub | `mult | `div];
-  type num = [ | `i(int) | `f(float)];
+  type n = [ | `n(float)];
   type t('a) = [ | `calc(op, 'a, 'a)];
 
   let (+) = (a, b) => `calc((`add, a, b));
@@ -34,10 +34,9 @@ module Calc = {
     | `div => "/"
     };
 
-  let numToString = (x: num) =>
+  let numToString = (x: n) =>
     switch (x) {
-    | `i(x) => {j|$x|j}
-    | `f(x) => {j|$x|j}
+    | `n(x) => {j|$x|j}
     };
 };
 
@@ -85,13 +84,13 @@ module LengthUnit = {
 module Length = {
   type t = [
     LengthUnit.t
-    | Calc.t([ LengthUnit.t | Calc.num | Calc.t('a)] as 'a)
+    | Calc.t([ LengthUnit.t | Calc.n | Calc.t('a)] as 'a)
   ];
 
   let rec operandToString = x =>
     switch (x) {
     | #LengthUnit.t as x => x->LengthUnit.toString
-    | #Calc.num as x => x->Calc.numToString
+    | #Calc.n as x => x->Calc.numToString
     | `calc(op, a, b) =>
       let op = op->Calc.opToString;
       let a = a->operandToString;
@@ -128,13 +127,13 @@ module PercentageUnit = {
 module Percentage = {
   type t = [
     PercentageUnit.t
-    | Calc.t([ PercentageUnit.t | Calc.num | Calc.t('a)] as 'a)
+    | Calc.t([ PercentageUnit.t | Calc.n | Calc.t('a)] as 'a)
   ];
 
   let rec operandToString = x =>
     switch (x) {
     | #PercentageUnit.t as x => x->PercentageUnit.toString
-    | #Calc.num as x => x->Calc.numToString
+    | #Calc.n as x => x->Calc.numToString
     | `calc(op, a, b) =>
       let op = op->Calc.opToString;
       let a = a->operandToString;
@@ -157,16 +156,14 @@ module LengthPercentage = {
   type t = [
     LengthUnit.t
     | PercentageUnit.t
-    | Calc.t(
-        [ LengthUnit.t | PercentageUnit.t | Calc.num | Calc.t('a)] as 'a,
-      )
+    | Calc.t([ LengthUnit.t | PercentageUnit.t | Calc.n | Calc.t('a)] as 'a)
   ];
 
   let rec operandToString = x =>
     switch (x) {
     | #LengthUnit.t as x => x->LengthUnit.toString
     | #PercentageUnit.t as x => x->PercentageUnit.toString
-    | #Calc.num as x => x->Calc.numToString
+    | #Calc.n as x => x->Calc.numToString
     | `calc(op, a, b) =>
       let op = op->Calc.opToString;
       let a = a->operandToString;
@@ -249,12 +246,12 @@ module LengthPercentageNone = {
 };
 
 module NumberPercentage = {
-  type t = [ PercentageUnit.t | Calc.num | Calc.t('a)] as 'a;
+  type t = [ PercentageUnit.t | Calc.n | Calc.t('a)] as 'a;
 
   let rec toString = (x: t) =>
     switch (x) {
     | #PercentageUnit.t as x => x->PercentageUnit.toString
-    | #Calc.num as x => x->Calc.numToString
+    | #Calc.n as x => x->Calc.numToString
     | `calc(op, a, b) =>
       let op = op->Calc.opToString;
       let a = a->toString;
