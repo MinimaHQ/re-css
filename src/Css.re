@@ -747,6 +747,86 @@ module BackgroundSize = {
     };
 };
 
+module BackgroundPosition = {
+  module KeywordX = {
+    type t = [
+      | `left
+      | `right
+      | `center
+      | `leftOffset(LengthPercentage.t)
+      | `rightOffset(LengthPercentage.t)
+      | `centerOffset(LengthPercentage.t)
+    ];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `left => "left"
+      | `right => "right"
+      | `center => "center"
+      | `leftOffset(o) =>
+        let x = "left";
+        let o = o->LengthPercentage.toString;
+        {j|$x $o|j};
+      | `rightOffset(o) =>
+        let x = "right";
+        let o = o->LengthPercentage.toString;
+        {j|$x $o|j};
+      | `centerOffset(o) =>
+        let x = "center";
+        let o = o->LengthPercentage.toString;
+        {j|$x $o|j};
+      };
+  };
+  module KeywordY = {
+    type t = [
+      | `top
+      | `bottom
+      | `center
+      | `topOffset(LengthPercentage.t)
+      | `bottomOffset(LengthPercentage.t)
+      | `centerOffset(LengthPercentage.t)
+    ];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `top => "top"
+      | `bottom => "bottom"
+      | `center => "center"
+      | `topOffset(o) =>
+        let x = "top";
+        let o = o->LengthPercentage.toString;
+        {j|$x $o|j};
+      | `bottomOffset(o) =>
+        let x = "bottom";
+        let o = o->LengthPercentage.toString;
+        {j|$x $o|j};
+      | `centerOffset(o) =>
+        let x = "center";
+        let o = o->LengthPercentage.toString;
+        {j|$x $o|j};
+      };
+  };
+
+  type t = [
+    | `values(LengthPercentage.t, LengthPercentage.t)
+    | `keywords(KeywordX.t, KeywordY.t)
+    | `initial
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `values(x, y) =>
+      let x = x->LengthPercentage.toString;
+      let y = y->LengthPercentage.toString;
+      {j|$x $y|j};
+    | `keywords(x, y) =>
+      let x = x->KeywordX.toString;
+      let y = y->KeywordY.toString;
+      {j|$x $y|j};
+    | `initial => "initial"
+    };
+};
+
 module ListStyleType = {
   /* TODO: ListStyleType: incomplete list */
   type t = [
