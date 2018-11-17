@@ -2158,3 +2158,166 @@ module Grid = {
       };
   };
 };
+
+module BasicShape = {
+  module ShapePosition = {
+    type t = [ | `keyword(Position.t) | `value(LengthPercentage.t)];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `keyword(x) => x->Position.toString
+      | `value(x) => x->LengthPercentage.toString
+      };
+  };
+
+  module FillRule = {
+    type t = [ | `nonzero | `evenodd];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | `nonzero => "nonzero"
+      | `evenodd => "evenodd"
+      };
+  };
+
+  module ShapeRadius = {
+    type t = [ LengthPercentage.t | `closestSide | `farthestSide];
+
+    let toString = (x: t) =>
+      switch (x) {
+      | #LengthPercentage.t as x => x->LengthPercentage.toString
+      | `farthestSide => "farthest-side"
+      | `closestSide => "closest-side"
+      };
+  };
+
+  type t = [
+    | `inset(
+        LengthPercentage.t,
+        LengthPercentage.t,
+        LengthPercentage.t,
+        LengthPercentage.t,
+        option(LengthPercentage.t),
+      )
+    | `circle(ShapeRadius.t, option((ShapePosition.t, ShapePosition.t)))
+    | `ellipse(
+        ShapeRadius.t,
+        ShapeRadius.t,
+        option((ShapePosition.t, ShapePosition.t)),
+      )
+    | `polygon(
+        list((LengthPercentage.t, LengthPercentage.t)),
+        option(FillRule.t),
+      )
+    | `path(string, option(FillRule.t))
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `inset(top, right, bottom, left, borderRadius) =>
+      let top = top->LengthPercentage.toString;
+      let right = right->LengthPercentage.toString;
+      let bottom = bottom->LengthPercentage.toString;
+      let left = left->LengthPercentage.toString;
+      let borderRadius =
+        borderRadius
+        ->Option.map(borderRadius =>
+            " round " ++ borderRadius->LengthPercentage.toString
+          )
+        ->Option.getWithDefault("");
+      {j|$top $right $bottom $left$borderRadius|j};
+    | `circle(radius, atPosition) =>
+      let radius = radius->ShapeRadius.toString;
+      let atPosition =
+        atPosition
+        ->Option.map(atPosition => {
+            let at1 = atPosition->fst->ShapePosition.toString;
+            let at2 = atPosition->snd->ShapePosition.toString;
+            {j| at $at1 $at2|j};
+          })
+        ->Option.getWithDefault("");
+      {j|$radius$atPosition|j};
+    | `ellipse(rX, rY, atPosition) =>
+      let rX = rX->ShapeRadius.toString;
+      let rY = rY->ShapeRadius.toString;
+      let atPosition =
+        atPosition
+        ->Option.map(atPosition => {
+            let at1 = atPosition->fst->ShapePosition.toString;
+            let at2 = atPosition->snd->ShapePosition.toString;
+            {j| at $at1 $at2|j};
+          })
+        ->Option.getWithDefault("");
+      {j|$rX $rY$atPosition|j};
+    | `polygon(shapeArgs, fillRule) =>
+      let fillRule =
+        fillRule
+        ->Option.map(fillRule => fillRule->FillRule.toString ++ ",")
+        ->Option.getWithDefault("");
+      let args =
+        shapeArgs
+        ->List.map(arg => {
+            let a1 = arg->fst->LengthPercentage.toString;
+            let a2 = arg->snd->LengthPercentage.toString;
+            {j|$a1 $a2|j};
+          })
+        ->List.toArray
+        ->Js.Array.joinWith(",", _);
+      {j|$fillRule$args|j};
+    | `path(path, fillRule) =>
+      let fillRule =
+        fillRule
+        ->Option.map(fillRule => fillRule->FillRule.toString ++ ",")
+        ->Option.getWithDefault("");
+      {j|$fillRule$path|j};
+    };
+};
+
+module GeometryBox = {
+  type t = [
+    | `marginBox
+    | `borderBox
+    | `paddingBox
+    | `contentBox
+    | `fillBox
+    | `strokeBox
+    | `viewBox
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `marginBox => "margin-box"
+    | `borderBox => "border-box"
+    | `paddingBox => "padding-box"
+    | `contentBox => "content-box"
+    | `fillBox => "fill-box"
+    | `strokeBox => "stroke-box"
+    | `viewBox => "view-box"
+    };
+};
+
+module ClipPath = {
+  type t = [
+    | `none
+    | `initial
+    | `unset
+    | `url(Url.t)
+    | `box(GeometryBox.t)
+    | `shape(BasicShape.t)
+    | `boxShape(GeometryBox.t, BasicShape.t)
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `none => "none"
+    | `initial => "initial"
+    | `unset => "unset"
+    | `url(url) => url->Url.toString
+    | `box(box) => box->GeometryBox.toString
+    | `shape(shape) => shape->BasicShape.toString
+    | `boxShape(box, shape) =>
+      let box = box->GeometryBox.toString;
+      let shape = shape->BasicShape.toString;
+      {j|$box $shape|j};
+    };
+};
