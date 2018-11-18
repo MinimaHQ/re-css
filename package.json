@@ -1,6 +1,6 @@
 {
   "name": "@minima.app/re-css",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "ReasonML bindings to CSS",
   "author": "Alex Fedoseev <alex.fedoseev@gmail.com>",
   "license": "MIT",
