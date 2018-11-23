@@ -1,5 +1,8 @@
 # History
 
+## 0.1.0
+Update `align-*` & `justify-*` types.
+
 ## 0.0.6
 Add `Css.rei` (it doesn't hide anything but required for inclusion of `Css` module into [`bs-emotion`](https://github.com/alexfedoseev/bs-emotion)).
 

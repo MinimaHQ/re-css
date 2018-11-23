@@ -1824,54 +1824,6 @@ module Flex = {
       {j|$direction $wrap|j};
     };
   };
-
-  module Align = {
-    type t = [
-      | `normal
-      | `flexStart
-      | `flexEnd
-      | `center
-      | `baseline
-      | `stretch
-      | `selfStart
-      | `selfEnd
-    ];
-
-    let toString = (x: t) =>
-      switch (x) {
-      | `normal => "normal"
-      | `flexStart => "flex-start"
-      | `flexEnd => "flex-end"
-      | `center => "center"
-      | `baseline => "baseline"
-      | `stretch => "stretch"
-      | `selfStart => "self-start"
-      | `selfEnd => "self-end"
-      };
-  };
-
-  module Justify = {
-    type t = [
-      | `normal
-      | `flexStart
-      | `flexEnd
-      | `center
-      | `spaceAround
-      | `spaceBetween
-      | `stretch
-    ];
-
-    let toString = (x: t) =>
-      switch (x) {
-      | `normal => "normal"
-      | `flexStart => "flex-start"
-      | `flexEnd => "flex-end"
-      | `center => "center"
-      | `spaceAround => "space-around"
-      | `spaceBetween => "space-between"
-      | `stretch => "stretch"
-      };
-  };
 };
 
 module Grid = {
@@ -2078,64 +2030,6 @@ module Grid = {
       };
   };
 
-  module BlockAlignment = {
-    type t = [
-      | `auto
-      | `normal
-      | `gridStart
-      | `gridEnd
-      | `center
-      | `stretch
-      | `baseline
-      | `firstBaseline
-      | `lastBaseline
-    ];
-
-    let toString = (x: t) =>
-      switch (x) {
-      | `auto => "auto"
-      | `normal => "normal"
-      | `gridStart => "start"
-      | `gridEnd => "end"
-      | `center => "center"
-      | `stretch => "stretch"
-      | `baseline => "baseline"
-      | `firstBaseline => "first baseline"
-      | `lastBaseline => "last baseline"
-      };
-  };
-
-  module TrackAlignment = {
-    type t = [
-      | `normal
-      | `gridStart
-      | `gridEnd
-      | `center
-      | `stretch
-      | `spaceAround
-      | `spaceBetween
-      | `spaceEvenly
-      | `baseline
-      | `firstBaseline
-      | `lastBaseline
-    ];
-
-    let toString = (x: t) =>
-      switch (x) {
-      | `normal => "normal"
-      | `gridStart => "start"
-      | `gridEnd => "end"
-      | `center => "center"
-      | `stretch => "stretch"
-      | `spaceAround => "space-around"
-      | `spaceBetween => "space-between"
-      | `spaceEvenly => "space-evenly"
-      | `baseline => "baseline"
-      | `firstBaseline => "first baseline"
-      | `lastBaseline => "last baseline"
-      };
-  };
-
   module TemplateAreas = {
     type t = [ | `areas(list(string)) | `none];
 
@@ -2157,6 +2051,218 @@ module Grid = {
       | `columnDense => "column dense"
       };
   };
+};
+
+module AlignItems = {
+  type t = [
+    | `normal
+    | `stretch
+    | `baseline
+    | `firstBaseline
+    | `lastBaseline
+    | `center
+    | `start
+    | `end_
+    | `selfStart
+    | `selfEnd
+    | `flexStart
+    | `flexEnd
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `normal => "normal"
+    | `stretch => "stretch"
+    | `baseline => "baseline"
+    | `firstBaseline => "first baseline"
+    | `lastBaseline => "last baseline"
+    | `center => "center"
+    | `start => "start"
+    | `end_ => "end"
+    | `selfStart => "self-start"
+    | `selfEnd => "self-end"
+    | `flexStart => "flex-start"
+    | `flexEnd => "flex-end"
+    };
+};
+
+module AlignSelf = {
+  type t = [
+    | `auto
+    | `normal
+    | `stretch
+    | `baseline
+    | `firstBaseline
+    | `lastBaseline
+    | `center
+    | `start
+    | `end_
+    | `selfStart
+    | `selfEnd
+    | `flexStart
+    | `flexEnd
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `auto => "auto"
+    | `normal => "normal"
+    | `stretch => "stretch"
+    | `baseline => "baseline"
+    | `firstBaseline => "first baseline"
+    | `lastBaseline => "last baseline"
+    | `center => "center"
+    | `start => "start"
+    | `end_ => "end"
+    | `selfStart => "self-start"
+    | `selfEnd => "self-end"
+    | `flexStart => "flex-start"
+    | `flexEnd => "flex-end"
+    };
+};
+
+module AlignContent = {
+  type t = [
+    | `normal
+    | `baseline
+    | `firstBaseline
+    | `lastBaseline
+    | `spaceBetween
+    | `spaceAround
+    | `spaceEvenly
+    | `stretch
+    | `center
+    | `start
+    | `end_
+    | `flexStart
+    | `flexEnd
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `normal => "normal"
+    | `baseline => "baseline"
+    | `firstBaseline => "first baseline"
+    | `lastBaseline => "last baseline"
+    | `spaceBetween => "space-between"
+    | `spaceAround => "space-around"
+    | `spaceEvenly => "space-evenly"
+    | `stretch => "stretch"
+    | `center => "center"
+    | `start => "start"
+    | `end_ => "end"
+    | `flexStart => "flex-start"
+    | `flexEnd => "flex-end"
+    };
+};
+
+module JustifyItems = {
+  type t = [
+    | `normal
+    | `stretch
+    | `baseline
+    | `firstBaseline
+    | `lastBaseline
+    | `center
+    | `start
+    | `end_
+    | `selfStart
+    | `selfEnd
+    | `flexStart
+    | `flexEnd
+    | `left
+    | `right
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `normal => "normal"
+    | `stretch => "stretch"
+    | `baseline => "baseline"
+    | `firstBaseline => "first baseline"
+    | `lastBaseline => "last baseline"
+    | `center => "center"
+    | `start => "start"
+    | `end_ => "end"
+    | `selfStart => "self-start"
+    | `selfEnd => "self-end"
+    | `flexStart => "flex-start"
+    | `flexEnd => "flex-end"
+    | `left => "left"
+    | `right => "right"
+    };
+};
+
+module JustifySelf = {
+  type t = [
+    | `auto
+    | `normal
+    | `stretch
+    | `baseline
+    | `firstBaseline
+    | `lastBaseline
+    | `center
+    | `start
+    | `end_
+    | `selfStart
+    | `selfEnd
+    | `flexStart
+    | `flexEnd
+    | `left
+    | `right
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `auto => "auto"
+    | `normal => "normal"
+    | `stretch => "stretch"
+    | `baseline => "baseline"
+    | `firstBaseline => "first baseline"
+    | `lastBaseline => "last baseline"
+    | `center => "center"
+    | `start => "start"
+    | `end_ => "end"
+    | `selfStart => "self-start"
+    | `selfEnd => "self-end"
+    | `flexStart => "flex-start"
+    | `flexEnd => "flex-end"
+    | `left => "left"
+    | `right => "right"
+    };
+};
+
+module JustifyContent = {
+  type t = [
+    | `normal
+    | `spaceBetween
+    | `spaceAround
+    | `spaceEvenly
+    | `stretch
+    | `center
+    | `start
+    | `end_
+    | `flexStart
+    | `flexEnd
+    | `left
+    | `right
+  ];
+
+  let toString = (x: t) =>
+    switch (x) {
+    | `normal => "normal"
+    | `spaceBetween => "space-between"
+    | `spaceAround => "space-around"
+    | `spaceEvenly => "space-evenly"
+    | `stretch => "stretch"
+    | `center => "center"
+    | `start => "start"
+    | `end_ => "end"
+    | `flexStart => "flex-start"
+    | `flexEnd => "flex-end"
+    | `left => "left"
+    | `right => "right"
+    };
 };
 
 module BasicShape = {

@@ -1301,31 +1301,6 @@ module Flex: {
     let toString: t => string;
   };
   module Flow: {let toString: (Direction.t, Wrap.t) => string;};
-  module Align: {
-    type t = [
-      | `baseline
-      | `center
-      | `flexEnd
-      | `flexStart
-      | `normal
-      | `selfEnd
-      | `selfStart
-      | `stretch
-    ];
-    let toString: t => string;
-  };
-  module Justify: {
-    type t = [
-      | `center
-      | `flexEnd
-      | `flexStart
-      | `normal
-      | `spaceAround
-      | `spaceBetween
-      | `stretch
-    ];
-    let toString: t => string;
-  };
 };
 module Grid: {
   module Flex: {
@@ -1712,36 +1687,6 @@ module Grid: {
     ];
     let toString: t => string;
   };
-  module BlockAlignment: {
-    type t = [
-      | `auto
-      | `baseline
-      | `center
-      | `firstBaseline
-      | `gridEnd
-      | `gridStart
-      | `lastBaseline
-      | `normal
-      | `stretch
-    ];
-    let toString: t => string;
-  };
-  module TrackAlignment: {
-    type t = [
-      | `baseline
-      | `center
-      | `firstBaseline
-      | `gridEnd
-      | `gridStart
-      | `lastBaseline
-      | `normal
-      | `spaceAround
-      | `spaceBetween
-      | `spaceEvenly
-      | `stretch
-    ];
-    let toString: t => string;
-  };
   module TemplateAreas: {
     type t = [ | `areas(list(string)) | `none];
     let toString: t => string;
@@ -1750,6 +1695,115 @@ module Grid: {
     type t = [ | `column | `columnDense | `row | `rowDense];
     let toString: t => string;
   };
+};
+module AlignItems: {
+  type t = [
+    | `baseline
+    | `center
+    | `end_
+    | `firstBaseline
+    | `flexEnd
+    | `flexStart
+    | `lastBaseline
+    | `normal
+    | `selfEnd
+    | `selfStart
+    | `start
+    | `stretch
+  ];
+  let toString: t => string;
+};
+module AlignSelf: {
+  type t = [
+    | `auto
+    | `baseline
+    | `center
+    | `end_
+    | `firstBaseline
+    | `flexEnd
+    | `flexStart
+    | `lastBaseline
+    | `normal
+    | `selfEnd
+    | `selfStart
+    | `start
+    | `stretch
+  ];
+  let toString: t => string;
+};
+module AlignContent: {
+  type t = [
+    | `baseline
+    | `center
+    | `end_
+    | `firstBaseline
+    | `flexEnd
+    | `flexStart
+    | `lastBaseline
+    | `normal
+    | `spaceAround
+    | `spaceBetween
+    | `spaceEvenly
+    | `start
+    | `stretch
+  ];
+  let toString: t => string;
+};
+module JustifyItems: {
+  type t = [
+    | `baseline
+    | `center
+    | `end_
+    | `firstBaseline
+    | `flexEnd
+    | `flexStart
+    | `lastBaseline
+    | `left
+    | `normal
+    | `right
+    | `selfEnd
+    | `selfStart
+    | `start
+    | `stretch
+  ];
+  let toString: t => string;
+};
+module JustifySelf: {
+  type t = [
+    | `auto
+    | `baseline
+    | `center
+    | `end_
+    | `firstBaseline
+    | `flexEnd
+    | `flexStart
+    | `lastBaseline
+    | `left
+    | `normal
+    | `right
+    | `selfEnd
+    | `selfStart
+    | `start
+    | `stretch
+  ];
+  let toString: t => string;
+};
+module JustifyContent: {
+  type t = [
+    | `center
+    | `end_
+    | `flexEnd
+    | `flexStart
+    | `left
+    | `normal
+    | `right
+    | `spaceAround
+    | `spaceBetween
+    | `spaceEvenly
+    | `start
+    | `stretch
+  ];
+  let toString: t => string;
 };
 module BasicShape: {
   module ShapePosition: {
