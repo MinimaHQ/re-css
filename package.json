@@ -1,6 +1,6 @@
 {
   "name": "@minima.app/re-css",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ReasonML bindings to CSS",
   "author": "Alex Fedoseev <alex.fedoseev@gmail.com>",
   "license": "MIT",
@@ -26,9 +26,9 @@
     "url": "https://github.com/minima-app/re-css.git"
   },
   "peerDependencies": {
-    "bs-platform": "^4.0.5"
+    "bs-platform": "^7.0.0"
   },
   "devDependencies": {
-    "bs-platform": "4.0.7"
+    "bs-platform": "7.0.0"
   }
 }
