@@ -1,6 +1,6 @@
 # History
 
-## 0.1.1
+## 1.0.0
 Bump `bs-platform` dependency to v7.0.0.
 
 ## 0.1.0
