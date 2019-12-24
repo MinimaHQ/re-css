@@ -25,10 +25,7 @@
     "type": "git",
     "url": "https://github.com/minima-app/re-css.git"
   },
-  "peerDependencies": {
-    "bs-platform": "^7.0.0"
-  },
   "devDependencies": {
-    "bs-platform": "7.0.0"
+    "bs-platform": "7.0.1"
   }
 }

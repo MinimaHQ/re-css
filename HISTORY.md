@@ -1,5 +1,8 @@
 # History
 
+## 1.0.1
+Remove `peerDependencies` section from `package.json`.
+
 ## 1.0.0
 Bump `bs-platform` dependency to v7.0.0.
 
